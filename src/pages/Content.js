@@ -28,7 +28,6 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Visibility as ViewIcon,
-  FilterList as FilterIcon,
 } from '@mui/icons-material';
 
 function Content() {

@@ -25,7 +25,6 @@ import {
 } from '@mui/material';
 import {
   Search as SearchIcon,
-  FilterList as FilterIcon,
   Download as DownloadIcon,
   Visibility as ViewIcon,
   Edit as EditIcon,
