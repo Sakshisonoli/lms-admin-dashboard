@@ -24,7 +24,7 @@ function TopBar() {
         borderBottom: '1px solid #344675',
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
+      <Toolbar sx={{ justifyContent: 'space-between', pl: 1 }}>
         <Typography
           variant="h6"
           sx={{

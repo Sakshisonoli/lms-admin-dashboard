@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Drawer,
@@ -10,6 +10,7 @@ import {
   Typography,
   Box,
   Divider,
+  Collapse,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
@@ -20,12 +21,26 @@ import {
   Notifications as NotificationsIcon,
   AdminPanelSettings as AdminIcon,
   ExitToApp as LogoutIcon,
+  ExpandLess,
+  ExpandMore,
+  Group as GroupIcon,
 } from '@mui/icons-material';
 
 const menuItems = [
   { text: 'Dashboard Analytics', icon: <DashboardIcon />, path: '/dashboard' },
-  { text: 'Team', icon: <PeopleIcon />, path: '/team' },
+  { 
+    text: 'Team', 
+    icon: <PeopleIcon />, 
+    path: '/team',
+    hasSubmenu: true,
+    submenu: [
+      { text: 'Staff', path: '/team/staff' },
+      { text: 'Teachers', path: '/team/teachers' },
+      { text: 'Students', path: '/team/students' },
+    ]
+  },
   { text: 'Content', icon: <ArticleIcon />, path: '/content' },
+  { text: 'Lessons', icon: <SchoolIcon />, path: '/lessons' },
   { text: 'Batches', icon: <SchoolIcon />, path: '/batches' },
   { text: 'Messages', icon: <MessageIcon />, path: '/messages' },
   { text: 'Notifications', icon: <NotificationsIcon />, path: '/notifications' },
@@ -35,9 +50,14 @@ const menuItems = [
 function Sidebar({ drawerWidth }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [openTeam, setOpenTeam] = useState(false);
 
   const handleNavigation = (path) => {
     navigate(path);
+  };
+
+  const handleTeamClick = () => {
+    setOpenTeam(!openTeam);
   };
 
   return (
@@ -62,7 +82,7 @@ function Sidebar({ drawerWidth }) {
             mb: 1,
           }}
         >
-          KLP LMS
+          Indian Army
         </Typography>
         <Typography
           variant="subtitle1"
@@ -79,39 +99,87 @@ function Sidebar({ drawerWidth }) {
       
       <List sx={{ px: 2, pt: 2 }}>
         {menuItems.map((item) => (
-          <ListItem key={item.text} disablePadding sx={{ mb: 1 }}>
-            <ListItemButton
-              onClick={() => handleNavigation(item.path)}
-              sx={{
-                borderRadius: '12px',
-                backgroundColor: location.pathname === item.path ? 'rgba(225, 78, 202, 0.1)' : 'transparent',
-                border: location.pathname === item.path ? '1px solid #e14eca' : '1px solid transparent',
-                '&:hover': {
-                  backgroundColor: 'rgba(225, 78, 202, 0.05)',
-                },
-                py: 1.5,
-              }}
-            >
-              <ListItemIcon
+          <React.Fragment key={item.text}>
+            <ListItem disablePadding sx={{ mb: 1 }}>
+              <ListItemButton
+                onClick={item.hasSubmenu ? handleTeamClick : () => handleNavigation(item.path)}
                 sx={{
-                  color: location.pathname === item.path ? '#e14eca' : '#9a9a9a',
-                  minWidth: 40,
+                  borderRadius: '12px',
+                  backgroundColor: location.pathname === item.path ? 'rgba(225, 78, 202, 0.1)' : 'transparent',
+                  border: location.pathname === item.path ? '1px solid #e14eca' : '1px solid transparent',
+                  '&:hover': {
+                    backgroundColor: 'rgba(225, 78, 202, 0.05)',
+                  },
+                  py: 1.5,
                 }}
               >
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText
-                primary={item.text}
-                sx={{
-                  '& .MuiListItemText-primary': {
-                    color: location.pathname === item.path ? '#ffffff' : '#9a9a9a',
-                    fontWeight: location.pathname === item.path ? 600 : 400,
-                    fontSize: '0.875rem',
-                  },
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
+                <ListItemIcon
+                  sx={{
+                    color: location.pathname === item.path ? '#e14eca' : '#9a9a9a',
+                    minWidth: 40,
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.text}
+                  sx={{
+                    '& .MuiListItemText-primary': {
+                      color: location.pathname === item.path ? '#ffffff' : '#9a9a9a',
+                      fontWeight: location.pathname === item.path ? 600 : 400,
+                      fontSize: '0.875rem',
+                    },
+                  }}
+                />
+                {item.hasSubmenu && (
+                  openTeam ? <ExpandLess sx={{ color: '#9a9a9a' }} /> : <ExpandMore sx={{ color: '#9a9a9a' }} />
+                )}
+              </ListItemButton>
+            </ListItem>
+            
+            {item.hasSubmenu && (
+              <Collapse in={openTeam} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {item.submenu.map((subItem) => (
+                    <ListItem key={subItem.text} disablePadding sx={{ mb: 1 }}>
+                      <ListItemButton
+                        onClick={() => handleNavigation(subItem.path)}
+                        sx={{
+                          borderRadius: '12px',
+                          backgroundColor: location.pathname === subItem.path ? 'rgba(225, 78, 202, 0.1)' : 'transparent',
+                          border: location.pathname === subItem.path ? '1px solid #e14eca' : '1px solid transparent',
+                          '&:hover': {
+                            backgroundColor: 'rgba(225, 78, 202, 0.05)',
+                          },
+                          py: 1,
+                          pl: 6,
+                        }}
+                      >
+                        <ListItemIcon
+                          sx={{
+                            color: location.pathname === subItem.path ? '#e14eca' : '#9a9a9a',
+                            minWidth: 30,
+                          }}
+                        >
+                          <GroupIcon sx={{ fontSize: 18 }} />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={subItem.text}
+                          sx={{
+                            '& .MuiListItemText-primary': {
+                              color: location.pathname === subItem.path ? '#ffffff' : '#9a9a9a',
+                              fontWeight: location.pathname === subItem.path ? 600 : 400,
+                              fontSize: '0.8rem',
+                            },
+                          }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            )}
+          </React.Fragment>
         ))}
       </List>
 

@@ -110,13 +110,13 @@ function Dashboard() {
       </Grid>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
-          <Card>
+        <Grid item xs={12} md={5}>
+          <Card sx={{ height: 400 }}>
             <CardContent>
               <Typography variant="h6" sx={{ color: '#ffffff', mb: 2 }}>
                 System Overview
               </Typography>
-              <Box sx={{ height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Box sx={{ height: 320, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Typography sx={{ color: '#9a9a9a' }}>
                   Chart visualization would be implemented here
                 </Typography>
@@ -125,31 +125,33 @@ function Dashboard() {
           </Card>
         </Grid>
         
-        <Grid item xs={12} md={4}>
-          <Card>
+        <Grid item xs={12} md={7}>
+          <Card sx={{ height: 400 }}>
             <CardContent>
               <Typography variant="h6" sx={{ color: '#ffffff', mb: 2 }}>
                 Recent Activities
               </Typography>
-              <List>
-                {recentActivities.map((activity, index) => (
-                  <ListItem key={index} sx={{ px: 0 }}>
-                    <ListItemAvatar>
-                      <Avatar sx={{ backgroundColor: '#e14eca', width: 32, height: 32 }}>
-                        {activity.user.charAt(0)}
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={activity.action}
-                      secondary={`${activity.user} • ${activity.time}`}
-                      sx={{
-                        '& .MuiListItemText-primary': { color: '#ffffff', fontSize: '0.875rem' },
-                        '& .MuiListItemText-secondary': { color: '#9a9a9a', fontSize: '0.75rem' },
-                      }}
-                    />
-                  </ListItem>
-                ))}
-              </List>
+              <Box sx={{ height: 320, overflowY: 'auto' }}>
+                <List>
+                  {recentActivities.map((activity, index) => (
+                    <ListItem key={index} sx={{ px: 0 }}>
+                      <ListItemAvatar>
+                        <Avatar sx={{ backgroundColor: '#e14eca', width: 32, height: 32 }}>
+                          {activity.user.charAt(0)}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={activity.action}
+                        secondary={`${activity.user} • ${activity.time}`}
+                        sx={{
+                          '& .MuiListItemText-primary': { color: '#ffffff', fontSize: '0.875rem' },
+                          '& .MuiListItemText-secondary': { color: '#9a9a9a', fontSize: '0.75rem' },
+                        }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
