@@ -21,10 +21,6 @@ import {
 } from '@mui/material';
 import {
   Add as AddIcon,
-  Warning as WarningIcon,
-  Info as InfoIcon,
-  CheckCircle as CheckCircleIcon,
-  Error as ErrorIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   Send as SendIcon,
@@ -93,20 +89,7 @@ function Notifications() {
     },
   ];
 
-  const getNotificationIcon = (type) => {
-    switch (type) {
-      case 'warning':
-        return <WarningIcon sx={{ color: '#ff8a00' }} />;
-      case 'error':
-        return <ErrorIcon sx={{ color: '#fd5d93' }} />;
-      case 'success':
-        return <CheckCircleIcon sx={{ color: '#00d4aa' }} />;
-      case 'info':
-      default:
-        return <InfoIcon sx={{ color: '#1d8cf8' }} />;
-    }
-  };
-
+  
   const getNotificationColor = (type) => {
     switch (type) {
       case 'warning':
