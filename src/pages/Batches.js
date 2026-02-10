@@ -9,8 +9,6 @@ import {
   Chip,
   IconButton,
   LinearProgress,
-  Avatar,
-  AvatarGroup,
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -23,25 +21,45 @@ import {
 const BatchCard = ({ batch }) => (
   <Card sx={{ height: '100%' }}>
     <CardContent>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-        <Box>
-          <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
+      <Box sx={{ mb: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+          <Typography variant="h6" sx={{ color: '#ffffff', fontWeight: 600 }}>
             {batch.name}
           </Typography>
-          <Chip
-            label={batch.status}
-            color={batch.status === 'Active' ? 'success' : batch.status === 'Completed' ? 'info' : 'warning'}
-            size="small"
-          />
+          <Box sx={{ display: 'flex', gap: 0.5 }}>
+            <IconButton 
+              size="small" 
+              sx={{ 
+                color: '#1d8cf8',
+                backgroundColor: 'rgba(29, 140, 248, 0.1)',
+                '&:hover': { backgroundColor: 'rgba(29, 140, 248, 0.2)' },
+                width: 32,
+                height: 32,
+              }}
+            >
+              <EditIcon sx={{ fontSize: 16 }} />
+            </IconButton>
+            <IconButton 
+              size="small" 
+              sx={{ 
+                color: '#fd5d93',
+                backgroundColor: 'rgba(253, 93, 147, 0.1)',
+                '&:hover': { backgroundColor: 'rgba(253, 93, 147, 0.2)' },
+                width: 32,
+                height: 32,
+              }}
+            >
+              <DeleteIcon sx={{ fontSize: 16 }} />
+            </IconButton>
+          </Box>
         </Box>
-        <Box>
-          <IconButton size="small" sx={{ color: '#1d8cf8' }}>
-            <EditIcon />
-          </IconButton>
-          <IconButton size="small" sx={{ color: '#fd5d93' }}>
-            <DeleteIcon />
-          </IconButton>
-        </Box>
+        
+        <Chip
+          label={batch.status}
+          color={batch.status === 'Active' ? 'success' : batch.status === 'Completed' ? 'info' : 'warning'}
+          size="small"
+          sx={{ mb: 2 }}
+        />
       </Box>
 
       <Box sx={{ mb: 2 }}>
@@ -53,8 +71,11 @@ const BatchCard = ({ batch }) => (
           value={batch.progress}
           sx={{
             backgroundColor: 'rgba(255,255,255,0.1)',
+            height: 8,
+            borderRadius: 4,
             '& .MuiLinearProgress-bar': {
               backgroundColor: batch.status === 'Active' ? '#00d4aa' : '#1d8cf8',
+              borderRadius: 4,
             },
           }}
         />
@@ -62,13 +83,13 @@ const BatchCard = ({ batch }) => (
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <PeopleIcon sx={{ color: '#9a9a9a', fontSize: 16 }} />
+          <PeopleIcon sx={{ color: '#9a9a9a', fontSize: 18 }} />
           <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
             {batch.studentCount} Students
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <SchoolIcon sx={{ color: '#9a9a9a', fontSize: 16 }} />
+          <SchoolIcon sx={{ color: '#9a9a9a', fontSize: 18 }} />
           <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
             {batch.courseCount} Courses
           </Typography>
@@ -76,19 +97,27 @@ const BatchCard = ({ batch }) => (
       </Box>
 
       <Box sx={{ mb: 2 }}>
-        <Typography variant="body2" sx={{ color: '#9a9a9a', mb: 1 }}>
+        <Typography variant="body2" sx={{ color: '#9a9a9a', mb: 1.5 }}>
           Teachers:
         </Typography>
-        <AvatarGroup max={4} sx={{ justifyContent: 'flex-start' }}>
+        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
           {batch.teachers.map((teacher, index) => (
-            <Avatar
+            <Chip
               key={index}
-              sx={{ width: 32, height: 32, backgroundColor: '#e14eca' }}
-            >
-              {teacher.charAt(0)}
-            </Avatar>
+              label={teacher}
+              size="small"
+              sx={{
+                backgroundColor: 'rgba(29, 140, 248, 0.15)',
+                color: '#1d8cf8',
+                fontSize: '0.75rem',
+                height: 24,
+                '& .MuiChip-label': {
+                  px: 1.5,
+                },
+              }}
+            />
           ))}
-        </AvatarGroup>
+        </Box>
       </Box>
 
       <Typography variant="body2" sx={{ color: '#9a9a9a' }}>

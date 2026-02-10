@@ -6,14 +6,7 @@ import {
   CardContent,
   Grid,
   Button,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Avatar,
-  Chip,
   IconButton,
-  Divider,
   TextField,
   Dialog,
   DialogTitle,
@@ -221,74 +214,80 @@ function Notifications() {
       {/* Notifications List */}
       <Card>
         <CardContent>
-          <Typography variant="h6" sx={{ color: '#ffffff', mb: 2 }}>
+          <Typography variant="h6" sx={{ color: '#ffffff', mb: 3 }}>
             Recent Notifications
           </Typography>
-          <List>
-            {notifications.map((notification, index) => (
-              <React.Fragment key={notification.id}>
-                <ListItem
-                  sx={{
-                    borderRadius: '8px',
-                    mb: 1,
-                    '&:hover': {
-                      backgroundColor: 'rgba(255,255,255,0.02)',
-                    },
-                  }}
-                >
-                  <ListItemAvatar>
-                    <Avatar sx={{ backgroundColor: 'transparent' }}>
-                      {getNotificationIcon(notification.type)}
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                        <Typography variant="subtitle1" sx={{ color: '#ffffff', fontWeight: 600 }}>
+          <Box>
+            {notifications.map((notification) => (
+              <Card 
+                key={notification.id}
+                sx={{ 
+                  mb: 2,
+                  backgroundColor: '#1e1e2f',
+                  border: '1px solid #344675',
+                  '&:hover': {
+                    borderColor: getNotificationColor(notification.type),
+                    backgroundColor: 'rgba(29, 140, 248, 0.02)',
+                  },
+                }}
+              >
+                <CardContent sx={{ p: 2.5, '&:last-child': { pb: 2.5 } }}>
+                  <Box sx={{ display: 'flex', gap: 2 }}>
+                    {/* Type Indicator */}
+                    <Box
+                      sx={{
+                        width: 4,
+                        backgroundColor: getNotificationColor(notification.type),
+                        borderRadius: 2,
+                        flexShrink: 0,
+                      }}
+                    />
+                    
+                    {/* Content */}
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+                        <Typography variant="subtitle1" sx={{ color: '#ffffff', fontWeight: 600, pr: 2 }}>
                           {notification.title}
                         </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                          <Chip
-                            label={notification.type}
-                            size="small"
-                            sx={{
-                              backgroundColor: getNotificationColor(notification.type),
-                              color: '#ffffff',
-                              textTransform: 'capitalize',
+                        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', flexShrink: 0 }}>
+                          <IconButton 
+                            size="small" 
+                            sx={{ 
+                              color: '#9a9a9a',
+                              '&:hover': { color: '#1d8cf8', backgroundColor: 'rgba(29, 140, 248, 0.1)' },
+                              width: 28,
+                              height: 28,
                             }}
-                          />
-                          <IconButton size="small" sx={{ color: '#1d8cf8' }}>
-                            <EditIcon />
+                          >
+                            <EditIcon sx={{ fontSize: 14 }} />
                           </IconButton>
-                          <IconButton size="small" sx={{ color: '#fd5d93' }}>
-                            <DeleteIcon />
+                          <IconButton 
+                            size="small" 
+                            sx={{ 
+                              color: '#9a9a9a',
+                              '&:hover': { color: '#fd5d93', backgroundColor: 'rgba(253, 93, 147, 0.1)' },
+                              width: 28,
+                              height: 28,
+                            }}
+                          >
+                            <DeleteIcon sx={{ fontSize: 14 }} />
                           </IconButton>
                         </Box>
                       </Box>
-                    }
-                    secondary={
-                      <Box>
-                        <Typography variant="body2" sx={{ color: '#9a9a9a', mb: 1 }}>
-                          {notification.message}
-                        </Typography>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <Typography variant="caption" sx={{ color: '#9a9a9a' }}>
-                            Sent to {notification.audience} • {notification.recipients} recipients • {notification.time}
-                          </Typography>
-                          <Chip
-                            label={notification.status}
-                            size="small"
-                            color={notification.status === 'sent' ? 'success' : 'warning'}
-                          />
-                        </Box>
-                      </Box>
-                    }
-                  />
-                </ListItem>
-                {index < notifications.length - 1 && <Divider sx={{ borderColor: '#344675' }} />}
-              </React.Fragment>
+                      
+                      <Typography variant="body2" sx={{ color: '#9a9a9a', mb: 1.5, lineHeight: 1.6 }}>
+                        {notification.message}
+                      </Typography>
+                      
+                      <Typography variant="caption" sx={{ color: '#6c757d', fontSize: '0.75rem' }}>
+                        {notification.audience} • {notification.recipients} recipients • {notification.time}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </CardContent>
+              </Card>
             ))}
-          </List>
+          </Box>
         </CardContent>
       </Card>
 

@@ -49,15 +49,8 @@ function Students() {
 
   return (
     <Box>
-      <Box sx={{ 
-        display: 'flex', 
-        flexDirection: { xs: 'column', sm: 'row' },
-        justifyContent: 'space-between', 
-        alignItems: { xs: 'flex-start', sm: 'center' }, 
-        mb: 3,
-        gap: 2,
-      }}>
-        <Typography variant="h4" sx={{ color: '#ffffff', fontWeight: 'bold', fontSize: { xs: '1.5rem', sm: '2rem' } }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Typography variant="h4" sx={{ color: '#ffffff', fontWeight: 'bold' }}>
           Students Management
         </Typography>
         <Button
@@ -66,7 +59,6 @@ function Students() {
           sx={{
             backgroundColor: '#e14eca',
             '&:hover': { backgroundColor: '#c73aa8' },
-            width: { xs: '100%', sm: 'auto' },
           }}
         >
           Add Student
@@ -74,7 +66,7 @@ function Students() {
       </Box>
 
       {/* Stats Cards */}
-      <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: { xs: 3, sm: 4 } }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent sx={{ textAlign: 'center' }}>
@@ -127,16 +119,11 @@ function Students() {
 
       <Card>
         <CardContent>
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h6" sx={{ color: '#ffffff', mb: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+            <Typography variant="h6" sx={{ color: '#ffffff' }}>
               Students Directory
             </Typography>
-            <Box sx={{ 
-              display: 'flex', 
-              flexDirection: { xs: 'column', sm: 'row' },
-              gap: 2,
-              alignItems: { xs: 'stretch', sm: 'center' },
-            }}>
+            <Box sx={{ display: 'flex', gap: 2 }}>
               <TextField
                 placeholder="Search students..."
                 InputProps={{
@@ -147,9 +134,9 @@ function Students() {
                   ),
                 }}
                 size="small"
-                sx={{ flex: { xs: 1, sm: 'auto' }, minWidth: { sm: 200 } }}
+                sx={{ minWidth: 200 }}
               />
-              <FormControl size="small" sx={{ flex: { xs: 1, sm: 'auto' }, minWidth: { xs: '100%', sm: 120 } }}>
+              <FormControl size="small" sx={{ minWidth: 120 }}>
                 <InputLabel sx={{ color: '#9a9a9a' }}>Batch</InputLabel>
                 <Select label="Batch" defaultValue="">
                   <MenuItem value="">All Batches</MenuItem>
@@ -161,8 +148,8 @@ function Students() {
             </Box>
           </Box>
           
-          <TableContainer component={Paper} sx={{ backgroundColor: '#27293d', overflowX: 'auto' }}>
-            <Table sx={{ minWidth: { xs: 650, sm: 'auto' } }}>
+          <TableContainer component={Paper} sx={{ backgroundColor: '#27293d' }}>
+            <Table>
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Name</TableCell>
