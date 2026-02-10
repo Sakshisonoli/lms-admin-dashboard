@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -16,6 +17,20 @@ import {
 } from '@mui/icons-material';
 
 function TopBar({ onMenuClick }) {
+  const location = useLocation();
+  
+  // Determine dashboard title based on current route
+  const getDashboardTitle = () => {
+    if (location.pathname.startsWith('/admin')) {
+      return 'Super Admin Dashboard';
+    } else if (location.pathname.startsWith('/teacher')) {
+      return 'Teacher Dashboard';
+    } else if (location.pathname.startsWith('/student')) {
+      return 'Student Dashboard';
+    }
+    return 'Dashboard';
+  };
+
   return (
     <AppBar
       position="static"
@@ -48,7 +63,7 @@ function TopBar({ onMenuClick }) {
               fontSize: { xs: '1rem', sm: '1.25rem' },
             }}
           >
-            Super Admin Dashboard
+            {getDashboardTitle()}
           </Typography>
         </Box>
         

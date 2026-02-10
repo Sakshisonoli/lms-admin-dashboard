@@ -11,8 +11,6 @@ import {
   Box,
   Divider,
   Collapse,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
@@ -53,18 +51,22 @@ function Sidebar({ drawerWidth, mobileOpen, onDrawerToggle }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [openTeam, setOpenTeam] = useState(false);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleNavigation = (path) => {
     navigate(path);
-    if (isMobile && onDrawerToggle) {
+    if (onDrawerToggle && mobileOpen) {
       onDrawerToggle();
     }
   };
 
   const handleTeamClick = () => {
     setOpenTeam(!openTeam);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userType');
+    navigate('/');
   };
 
   const drawerContent = (
@@ -182,6 +184,7 @@ function Sidebar({ drawerWidth, mobileOpen, onDrawerToggle }) {
       <Box sx={{ mt: 'auto', p: 2 }}>
         <Divider sx={{ borderColor: '#344675', mb: 2 }} />
         <ListItemButton
+          onClick={handleLogout}
           sx={{
             borderRadius: '12px',
             '&:hover': {
