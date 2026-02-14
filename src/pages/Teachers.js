@@ -36,14 +36,16 @@ import {
   Email as EmailIcon,
   Close as CloseIcon,
   Search as SearchIcon,
+  School as SchoolIcon,
+  CheckCircle as CheckCircleIcon,
+  MenuBook as MenuBookIcon,
+  TrendingUp as TrendingUpIcon,
 } from '@mui/icons-material';
 
 function Teachers() {
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogMode, setDialogMode] = useState('create');
-  // eslint-disable-next-line no-unused-vars
-  const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [teacherToDelete, setTeacherToDelete] = useState(null);
   const [filterBatch, setFilterBatch] = useState('all');
@@ -89,7 +91,6 @@ function Teachers() {
 
   const handleOpenEdit = (teacher) => {
     setDialogMode('edit');
-    setSelectedTeacher(teacher);
     setFormData({
       name: teacher.name,
       email: teacher.email,
@@ -104,7 +105,6 @@ function Teachers() {
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    setSelectedTeacher(null);
   };
 
   const handleSubmit = () => {
@@ -161,49 +161,77 @@ function Teachers() {
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#FF6B00', fontWeight: 'bold' }}>
-                {teachers.length}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Total Teachers
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#FF6B00', mr: 2 }}>
+                  <SchoolIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#FF6B00', fontWeight: 'bold' }}>
+                    {teachers.length}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Total Teachers
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#3B5323', fontWeight: 'bold' }}>
-                {teachers.filter(t => t.status === 'Active').length}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Active Teachers
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#3B5323', mr: 2 }}>
+                  <CheckCircleIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#3B5323', fontWeight: 'bold' }}>
+                    {teachers.filter(t => t.status === 'Active').length}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Active Teachers
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#FF8C00', fontWeight: 'bold' }}>
-                6
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Subjects
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#FF8C00', mr: 2 }}>
+                  <MenuBookIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#FF8C00', fontWeight: 'bold' }}>
+                    6
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Subjects
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#c62020ff', fontWeight: 'bold' }}>
-                9.5
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Avg Experience
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#c62020ff', mr: 2 }}>
+                  <TrendingUpIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#c62020ff', fontWeight: 'bold' }}>
+                    9.5
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Avg Experience
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>

@@ -38,7 +38,6 @@ function Notifications() {
   const { userContext } = useUser();
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogMode, setDialogMode] = useState('create');
-  const [selectedNotification, setSelectedNotification] = useState(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [notificationToDelete, setNotificationToDelete] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -114,7 +113,6 @@ function Notifications() {
 
   const handleOpenCreate = () => {
     setDialogMode('create');
-    setSelectedNotification(null);
     setNewNotification({
       title: '',
       message: '',
@@ -127,7 +125,6 @@ function Notifications() {
 
   const handleOpenEdit = (notification) => {
     setDialogMode('edit');
-    setSelectedNotification(notification);
     setNewNotification({
       title: notification.title,
       message: notification.message,
@@ -154,7 +151,6 @@ function Notifications() {
     console.log(dialogMode === 'create' ? 'Creating notification:' : 'Updating notification:', newNotification);
     alert(`Notification ${dialogMode === 'create' ? 'created' : 'updated'} successfully!`);
     setOpenDialog(false);
-    setSelectedNotification(null);
     setNewNotification({
       title: '',
       message: '',

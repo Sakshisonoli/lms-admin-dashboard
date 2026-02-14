@@ -36,14 +36,15 @@ import {
   Email as EmailIcon,
   Search as SearchIcon,
   Close as CloseIcon,
+  People as PeopleIcon,
+  School as SchoolIcon,
+  Group as GroupIcon,
 } from '@mui/icons-material';
 
 function Students() {
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogMode, setDialogMode] = useState('create'); // 'create' or 'edit'
-  // eslint-disable-next-line no-unused-vars
-  const [selectedStudent, setSelectedStudent] = useState(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [studentToDelete, setStudentToDelete] = useState(null);
   const [filterBatch, setFilterBatch] = useState('all');
@@ -90,7 +91,6 @@ function Students() {
 
   const handleOpenEdit = (student) => {
     setDialogMode('edit');
-    setSelectedStudent(student);
     setFormData({
       name: student.name,
       email: student.email,
@@ -104,7 +104,6 @@ function Students() {
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    setSelectedStudent(null);
   };
 
   const handleSubmit = () => {
@@ -177,13 +176,20 @@ function Students() {
       <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: { xs: 3, sm: 4 } }}>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#FF6B00', fontWeight: 'bold' }}>
-                {students.length}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Total Students
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#FF6B00', mr: 2 }}>
+                  <PeopleIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#FF6B00', fontWeight: 'bold' }}>
+                    {students.length}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Total Students
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -192,13 +198,20 @@ function Students() {
             onClick={() => setFilterBatch('Commando')}
             sx={{ cursor: 'pointer', '&:hover': { borderColor: '#3B5323', border: '1px solid' } }}
           >
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#3B5323', fontWeight: 'bold' }}>
-                {batchStats['Commando']}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Commando Students
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#3B5323', mr: 2 }}>
+                  <SchoolIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#3B5323', fontWeight: 'bold' }}>
+                    {batchStats['Commando']}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Commando Students
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -207,13 +220,20 @@ function Students() {
             onClick={() => setFilterBatch('Platoon Commander')}
             sx={{ cursor: 'pointer', '&:hover': { borderColor: '#FF8C00', border: '1px solid' } }}
           >
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#FF8C00', fontWeight: 'bold' }}>
-                {batchStats['Platoon Commander']}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Platoon Commander Students
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#FF8C00', mr: 2 }}>
+                  <GroupIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#FF8C00', fontWeight: 'bold' }}>
+                    {batchStats['Platoon Commander']}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Platoon Commander Students
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>

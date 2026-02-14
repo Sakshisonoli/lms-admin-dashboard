@@ -36,14 +36,16 @@ import {
   Add as AddIcon,
   Email as EmailIcon,
   Close as CloseIcon,
+  People as PeopleIcon,
+  CheckCircle as ActiveIcon,
+  Business as DepartmentIcon,
+  AdminPanelSettings as AdminIcon,
 } from '@mui/icons-material';
 
 function Staff() {
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogMode, setDialogMode] = useState('create');
-  // eslint-disable-next-line no-unused-vars
-  const [selectedStaff, setSelectedStaff] = useState(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [staffToDelete, setStaffToDelete] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -98,7 +100,6 @@ function Staff() {
 
   const handleOpenEdit = (staff) => {
     setDialogMode('edit');
-    setSelectedStaff(staff);
     setFormData({
       name: staff.name,
       email: staff.email,
@@ -113,7 +114,6 @@ function Staff() {
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    setSelectedStaff(null);
   };
 
   const handleSubmit = () => {
@@ -161,49 +161,77 @@ function Staff() {
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#FF6B00', fontWeight: 'bold' }}>
-                {officeStaff.length}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Total Staff
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#FF6B00', mr: 2 }}>
+                  <PeopleIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#FF6B00', fontWeight: 'bold' }}>
+                    {officeStaff.length}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Total Staff
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#3B5323', fontWeight: 'bold' }}>
-                {officeStaff.filter(s => s.status === 'Active').length}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Active Staff
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#3B5323', mr: 2 }}>
+                  <ActiveIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#3B5323', fontWeight: 'bold' }}>
+                    {officeStaff.filter(s => s.status === 'Active').length}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Active Staff
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#FF8C00', fontWeight: 'bold' }}>
-                5
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Departments
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#FF8C00', mr: 2 }}>
+                  <DepartmentIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#FF8C00', fontWeight: 'bold' }}>
+                    5
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Departments
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#c62020ff', fontWeight: 'bold' }}>
-                3
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                Admin Roles
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#c62020ff', mr: 2 }}>
+                  <AdminIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#c62020ff', fontWeight: 'bold' }}>
+                    3
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Admin Roles
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>

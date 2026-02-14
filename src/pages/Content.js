@@ -54,7 +54,6 @@ function Content() {
   const [filterBatch, setFilterBatch] = useState('all');
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
   const [openViewDialog, setOpenViewDialog] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [selectedContent, setSelectedContent] = useState(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [contentToDelete, setContentToDelete] = useState(null);
@@ -68,8 +67,6 @@ function Content() {
     file: null,
   });
   const [editMode, setEditMode] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [editingContent, setEditingContent] = useState(null);
 
   const allContentData = [
     {
@@ -176,7 +173,6 @@ function Content() {
 
   const handleOpenUpload = () => {
     setEditMode(false);
-    setEditingContent(null);
     setFormData({
       title: '',
       type: 'Document',
@@ -189,7 +185,6 @@ function Content() {
 
   const handleOpenEdit = (content) => {
     setEditMode(true);
-    setEditingContent(content);
     setFormData({
       title: content.title,
       type: 'Document',

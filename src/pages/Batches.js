@@ -149,8 +149,6 @@ const BatchCard = ({ batch, onEdit, onDelete }) => (
 function Batches() {
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogMode, setDialogMode] = useState('create');
-  // eslint-disable-next-line no-unused-vars
-  const [selectedBatch, setSelectedBatch] = useState(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [batchToDelete, setBatchToDelete] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -224,7 +222,6 @@ function Batches() {
 
   const handleOpenEdit = (batch) => {
     setDialogMode('edit');
-    setSelectedBatch(batch);
     setFormData({
       name: batch.name,
       status: batch.status,
@@ -238,7 +235,6 @@ function Batches() {
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    setSelectedBatch(null);
   };
 
   const handleSubmit = () => {
