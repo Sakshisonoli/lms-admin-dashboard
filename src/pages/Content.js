@@ -53,8 +53,8 @@ function Content() {
   const [filterType, setFilterType] = useState('all');
   const [filterBatch, setFilterBatch] = useState('all');
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
-  const [openViewDialog, setOpenViewDialog] = useState(false);
-  const [selectedContent, setSelectedContent] = useState(null);
+  // const [openViewDialog, setOpenViewDialog] = useState(false); // Commented out - View Dialog not used
+  // const [selectedContent, setSelectedContent] = useState(null); // Commented out - View Dialog not used
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [contentToDelete, setContentToDelete] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -702,7 +702,8 @@ function Content() {
         </DialogActions>
       </Dialog>
 
-      {/* View Content Dialog */}
+      {/* View Content Dialog - COMMENTED OUT (Not currently used - using DocumentViewer page instead) */}
+      {/* 
       <Dialog
         open={openViewDialog}
         onClose={() => setOpenViewDialog(false)}
@@ -764,6 +765,7 @@ function Content() {
           </Button>
         </DialogActions>
       </Dialog>
+      */}
 
       {/* Delete Confirmation Dialog */}
       <Dialog
