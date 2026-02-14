@@ -9,7 +9,6 @@ import {
   TextField,
   Button,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
 } from '@mui/material';

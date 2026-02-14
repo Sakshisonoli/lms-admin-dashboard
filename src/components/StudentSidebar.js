@@ -9,7 +9,6 @@ import {
   ListItemText,
   Typography,
   Box,
-  Divider,
   useMediaQuery,
   useTheme,
   TextField,
