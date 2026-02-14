@@ -533,7 +533,7 @@ function Staff() {
         <DialogTitle sx={{ color: '#ffffff', mb: 2 }}>Confirm Delete</DialogTitle>
         <DialogContent>
           <Typography sx={{ color: '#e5e7eb' }}>
-            Are you sure you want to Delete Staff Member (???????? ?????) <strong>{staffToDelete?.name}</strong>?
+            Are you sure you want to delete staff member <strong>{staffToDelete?.name}</strong>?
           </Typography>
           <Alert severity="warning" sx={{ mt: 2 }}>
             This action cannot be undone. Staff member will lose access to the system.
