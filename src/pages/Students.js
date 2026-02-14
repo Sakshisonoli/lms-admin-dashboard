@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -144,33 +145,13 @@ function Students() {
   };
 
   return (
-    <Box>
-      <Box sx={{ 
-        display: 'flex', 
-        flexDirection: { xs: 'column', sm: 'row' },
-        justifyContent: 'space-between', 
-        alignItems: { xs: 'flex-start', sm: 'center' }, 
-        mb: 2,
-        pb: 2,
-        borderBottom: '2px solid #FF8C00',
-        gap: 2,
-      }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold', fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-          Students Management (छात्र प्रबंधन)
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleOpenCreate}
-          sx={{
-            backgroundColor: '#c62020ff',
-            '&:hover': { backgroundColor: '#a01818' },
-            width: { xs: '100%', sm: 'auto' },
-          }}
-        >
-          Add Student (छात्र जोड़ें)
-        </Button>
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="Students Management (छात्र प्रबंधन)"
+        buttonText="Add Student (छात्र जोड़ें)"
+        buttonIcon={<AddIcon />}
+        onButtonClick={handleOpenCreate}
+      />
 
       {/* Stats Cards */}
       <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: { xs: 3, sm: 4 } }}>

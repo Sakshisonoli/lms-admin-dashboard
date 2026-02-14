@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -72,12 +73,10 @@ function Profile() {
   };
 
   return (
-    <Box>
-      <Box sx={{ mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          My Profile & Settings (मेरी प्रोफ़ाइल और सेटिंग्स)
-        </Typography>
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="My Profile & Settings (मेरी प्रोफ़ाइल और सेटिंग्स)"
+      />
 
       <Grid container spacing={3}>
         {/* Profile Information */}

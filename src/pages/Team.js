@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -11,7 +11,6 @@ import {
   Tab,
   Avatar,
   Chip,
-  Button,
   IconButton,
   Table,
   TableBody,
@@ -116,22 +115,13 @@ function Team() {
   ];
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          Team Management (टीम प्रबंधन)
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          sx={{
-            backgroundColor: '#c62020ff',
-            '&:hover': { backgroundColor: '#a01818' },
-          }}
-        >
-          Add Member
-        </Button>
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="Team Management (टीम प्रबंधन)"
+        buttonText="Add Team Member"
+        buttonIcon={<AddIcon />}
+        onButtonClick={() => {}}
+      />
 
       <Card>
         <CardContent>
@@ -160,8 +150,8 @@ function Team() {
           </TabPanel>
 
           <TabPanel value={tabValue} index={1}>
-            <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
-              <Table>
+            <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff', overflowX: 'auto' }}>
+              <Table sx={{ minWidth: { xs: 650, sm: 'auto' } }}>
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Name</TableCell>
@@ -209,8 +199,8 @@ function Team() {
           </TabPanel>
 
           <TabPanel value={tabValue} index={2}>
-            <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
-              <Table>
+            <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff', overflowX: 'auto' }}>
+              <Table sx={{ minWidth: { xs: 650, sm: 'auto' } }}>
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Name</TableCell>
@@ -263,5 +253,6 @@ function Team() {
 }
 
 export default Team;
+
 
 

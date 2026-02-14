@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -135,23 +136,13 @@ function Lessons() {
   };
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          Lesson Management (पाठ प्रबंधन)
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => setOpenDialog(true)}
-          sx={{
-            backgroundColor: '#c62020ff',
-            '&:hover': { backgroundColor: '#a01818' },
-          }}
-        >
-          Create Lesson (पाठ बनाएं)
-        </Button>
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="Lesson Management (पाठ प्रबंधन)"
+        buttonText="Create Lesson (पाठ बनाएं)"
+        buttonIcon={<AddIcon />}
+        onButtonClick={() => setOpenDialog(true)}
+      />
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -253,8 +244,8 @@ function Lessons() {
           </Box>
 
           {/* Lessons Table */}
-          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
-            <Table>
+          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff', overflowX: 'auto' }}>
+            <Table sx={{ minWidth: { xs: 650, sm: 'auto' } }}>
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Title</TableCell>
@@ -429,5 +420,6 @@ function Lessons() {
 }
 
 export default Lessons;
+
 
 

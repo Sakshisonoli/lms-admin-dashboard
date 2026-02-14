@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -179,12 +180,10 @@ function AdminActivity() {
   };
 
   return (
-    <Box>
-      <Box sx={{ mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          Admin Activity Log (व्यवस्थापक गतिविधि लॉग)
-        </Typography>
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="Admin Activity Log (व्यवस्थापक गतिविधि लॉग)"
+      />
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -293,8 +292,8 @@ function AdminActivity() {
           </Box>
 
           {/* Activity Table */}
-          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
-            <Table>
+          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff', overflowX: 'auto' }}>
+            <Table sx={{ minWidth: { xs: 650, sm: 'auto' } }}>
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>User</TableCell>
@@ -369,4 +368,5 @@ function AdminActivity() {
 }
 
 export default AdminActivity;
+
 

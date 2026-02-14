@@ -22,6 +22,7 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import PageHeader from '../components/PageHeader';
 
 function MyDocuments() {
   const navigate = useNavigate();
@@ -120,19 +121,16 @@ function MyDocuments() {
   };
 
   return (
-    <Box>
-      <Box sx={{ mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold', fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-          My Documents (मेरे दस्तावेज़)
-        </Typography>
-      </Box>
-      <Box sx={{ mb: 3 }}>
-        {userContext.userType === 'student' && userContext.assignedBatch && (
-          <Alert severity="info" sx={{ mt: 2 }}>
-            Showing documents for: <strong>{userContext.assignedBatch}</strong>
-          </Alert>
-        )}
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="My Documents (मेरे दस्तावेज़)"
+      />
+      
+      {userContext.userType === 'student' && userContext.assignedBatch && (
+        <Alert severity="info" sx={{ mb: 3 }}>
+          Showing documents for: <strong>{userContext.assignedBatch}</strong>
+        </Alert>
+      )}
 
       {/* Search and Filters */}
       <Card sx={{ mb: 3 }}>

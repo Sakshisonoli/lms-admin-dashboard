@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -78,19 +79,16 @@ function MyStudents() {
   };
 
   return (
-    <Box>
-      <Box sx={{ mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          My Students (मेरे छात्र)
-        </Typography>
-      </Box>
-      <Box sx={{ mb: 3 }}>
-        {userContext.userType === 'teacher' && myBatches.length > 0 && (
-          <Alert severity="info" sx={{ mt: 2 }}>
-            Showing students from your assigned batches: <strong>{myBatches.join(', ')}</strong>
-          </Alert>
-        )}
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="My Students (मेरे छात्र)"
+      />
+      
+      {userContext.userType === 'teacher' && myBatches.length > 0 && (
+        <Alert severity="info" sx={{ mb: 3 }}>
+          Showing students from your assigned batches: <strong>{myBatches.join(', ')}</strong>
+        </Alert>
+      )}
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -222,8 +220,8 @@ function MyStudents() {
             </Box>
           </Box>
 
-          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
-            <Table>
+          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff', overflowX: 'auto' }}>
+            <Table sx={{ minWidth: { xs: 650, sm: 'auto' } }}>
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Student</TableCell>
@@ -327,4 +325,5 @@ function MyStudents() {
 }
 
 export default MyStudents;
+
 

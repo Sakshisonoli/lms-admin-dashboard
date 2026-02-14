@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -110,20 +111,13 @@ function MyQueries() {
   };
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, pb: 2, borderBottom: '2px solid #FF8C00', flexWrap: 'wrap', gap: 2 }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          My Queries (मेरे प्रश्न)
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleOpenDialog}
-          sx={{ backgroundColor: '#c62020ff', color: '#ffffff', '&:hover': { backgroundColor: '#a01818' } }}
-        >
-          Ask Question (प्रश्न पूछें)
-        </Button>
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="My Queries (मेरे प्रश्न)"
+        buttonText="Ask Question (प्रश्न पूछें)"
+        buttonIcon={<AddIcon />}
+        onButtonClick={handleOpenDialog}
+      />
 
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={4}>

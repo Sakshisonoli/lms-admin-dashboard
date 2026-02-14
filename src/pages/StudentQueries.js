@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -91,12 +92,10 @@ function StudentQueries() {
   };
 
   return (
-    <Box>
-      <Box sx={{ mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          Student Queries & Questions (छात्र प्रश्न और सवाल)
-        </Typography>
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="Student Queries & Questions (छात्र प्रश्न और सवाल)"
+      />
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>

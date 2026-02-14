@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -139,23 +140,13 @@ function Staff() {
   };
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          Office Staff Management (कार्यालय कर्मचारी प्रबंधन)
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={handleOpenCreate}
-          sx={{
-            backgroundColor: '#c62020ff',
-            '&:hover': { backgroundColor: '#a01818' },
-          }}
-        >
-          Add Staff Member (कर्मचारी जोड़ें)
-        </Button>
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="Office Staff Management (कार्यालय कर्मचारी प्रबंधन)"
+        buttonText="Add Staff Member (कर्मचारी जोड़ें)"
+        buttonIcon={<AddIcon />}
+        onButtonClick={handleOpenCreate}
+      />
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -288,8 +279,8 @@ function Staff() {
           <Typography variant="h6" sx={{ color: '#1f2937', mb: 2 }}>
             Office Staff Directory ({filteredStaff.length} staff members)
           </Typography>
-          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
-            <Table>
+          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff', overflowX: 'auto' }}>
+            <Table sx={{ minWidth: { xs: 650, sm: 'auto' } }}>
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Name</TableCell>
@@ -576,4 +567,5 @@ function Staff() {
 }
 
 export default Staff;
+
 

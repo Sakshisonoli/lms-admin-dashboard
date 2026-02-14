@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -114,12 +115,10 @@ function Messages() {
   };
 
   return (
-    <Box>
-      <Box sx={{ mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          Messages & Communication (संदेश और संचार)
-        </Typography>
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="Messages & Communication (संदेश और संचार)"
+      />
 
       <Grid container spacing={3} sx={{ height: 'calc(100vh - 200px)' }}>
         {/* Conversations List */}

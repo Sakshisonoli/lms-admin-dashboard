@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -102,19 +103,16 @@ function MyTrainers() {
   }
 
   return (
-    <Box>
-      <Box sx={{ mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold', fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-          My Trainers (मेरे प्रशिक्षक)
-        </Typography>
-      </Box>
-      <Box sx={{ mb: 3 }}>
-        {userContext.userType === 'student' && userContext.assignedBatch && (
-          <Alert severity="info" sx={{ mt: 2 }}>
-            Showing trainers for: <strong>{userContext.assignedBatch}</strong> ({trainers.length} trainer{trainers.length !== 1 ? 's' : ''})
-          </Alert>
-        )}
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="My Trainers (मेरे प्रशिक्षक)"
+      />
+      
+      {userContext.userType === 'student' && userContext.assignedBatch && (
+        <Alert severity="info" sx={{ mb: 3 }}>
+          Showing trainers for: <strong>{userContext.assignedBatch}</strong> ({trainers.length} trainer{trainers.length !== 1 ? 's' : ''})
+        </Alert>
+      )}
 
       {/* Search */}
       <Card sx={{ mb: 3 }}>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useUser } from '../context/UserContext';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -168,34 +169,14 @@ function Notifications() {
   };
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
-        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
-          Notifications & Alerts (सूचनाएं और अलर्ट)
-        </Typography>
-        {userContext.userType !== 'student' && (
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={handleOpenCreate}
-            sx={{
-              backgroundColor: '#c62020ff',
-              color: '#ffffff',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-              py: 1,
-              '&:hover': { 
-                backgroundColor: '#a01818',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
-              },
-            }}
-          >
-            Create Notification (सूचना बनाएं)
-          </Button>
-        )}
-      </Box>
+    <Box sx={{ p: { xs: 2, sm: 3 } }}>
+      <PageHeader
+        title="Notifications & Alerts (सूचनाएं और अलर्ट)"
+        buttonText="Create Notification (सूचना बनाएं)"
+        buttonIcon={<AddIcon />}
+        onButtonClick={handleOpenCreate}
+        showButton={userContext.userType !== 'student'}
+      />
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>

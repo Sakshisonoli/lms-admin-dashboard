@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import PageHeader from '../components/PageHeader';
 import {
   Box,
   Typography,
@@ -261,27 +262,14 @@ function Content() {
   };
 
   return (
-    <Box sx={{ backgroundColor: '#f5f7fa', minHeight: '100vh', p: 3 }}>
+    <Box sx={{ backgroundColor: '#f5f7fa', minHeight: '100vh', p: { xs: 2, sm: 3 } }}>
       <Box sx={{ mb: 3 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, pb: 2, borderBottom: '3px solid #FF6B00' }}>
-          <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
-            Document Management System (दस्तावेज़ प्रबंधन प्रणाली)
-          </Typography>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={handleOpenUpload}
-            sx={{
-              backgroundColor: '#c62020ff',
-              '&:hover': { backgroundColor: '#660000' },
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-            }}
-          >
-            Upload Document (दस्तावेज़ अपलोड करें)
-          </Button>
-        </Box>
+        <PageHeader
+          title="Document Management System (दस्तावेज़ प्रबंधन प्रणाली)"
+          buttonText="Upload Document (दस्तावेज़ अपलोड करें)"
+          buttonIcon={<AddIcon />}
+          onButtonClick={handleOpenUpload}
+        />
         
         {/* Access Level Indicator */}
         {userContext.userType === 'teacher' && accessibleBatches.length > 0 && (
@@ -433,8 +421,8 @@ function Content() {
           </Box>
 
           {/* Content Table */}
-          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
-            <Table>
+          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff', overflowX: 'auto' }}>
+            <Table sx={{ minWidth: { xs: 650, sm: 'auto' } }}>
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Document Title</TableCell>
@@ -812,6 +800,7 @@ function Content() {
 }
 
 export default Content;
+
 
 
 
