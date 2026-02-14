@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Typography,
@@ -43,16 +45,16 @@ const TeamMemberCard = ({ member, onSendMessage }) => (
           height: 80,
           mx: 'auto',
           mb: 2,
-          backgroundColor: '#e14eca',
+          backgroundColor: '#c62020ff',
           fontSize: '2rem',
         }}
       >
         {member.name.charAt(0)}
       </Avatar>
-      <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
+      <Typography variant="h6" sx={{ color: '#1f2937', mb: 1 }}>
         {member.name}
       </Typography>
-      <Typography variant="body2" sx={{ color: '#9a9a9a', mb: 2 }}>
+      <Typography variant="body2" sx={{ color: '#6b7280', mb: 2 }}>
         {member.email}
       </Typography>
       <Chip
@@ -62,12 +64,12 @@ const TeamMemberCard = ({ member, onSendMessage }) => (
         sx={{ mb: 2 }}
       />
       <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
-        <IconButton size="small" sx={{ color: '#1d8cf8' }}>
+        <IconButton size="small" sx={{ color: '#FF6B00' }}>
           <EditIcon />
         </IconButton>
         <IconButton
           size="small"
-          sx={{ color: '#e14eca' }}
+          sx={{ color: '#c62020ff' }}
           onClick={() => onSendMessage(member)}
         >
           <EmailIcon />
@@ -81,6 +83,7 @@ const TeamMemberCard = ({ member, onSendMessage }) => (
 );
 
 function Team() {
+  const navigate = useNavigate();
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (event, newValue) => {
@@ -88,41 +91,42 @@ function Team() {
   };
 
   const handleSendMessage = (member) => {
-    alert(`Send direct message to ${member.name}`);
+    // Navigate to messages page with the member's info
+    navigate('/admin/messages', { state: { recipient: member } });
   };
 
   const officeStaff = [
-    { id: 1, name: 'Alice Johnson', email: 'alice@klp.com', status: 'Active', role: 'Admin' },
-    { id: 2, name: 'Bob Smith', email: 'bob@klp.com', status: 'Active', role: 'Manager' },
-    { id: 3, name: 'Carol Davis', email: 'carol@klp.com', status: 'Inactive', role: 'Coordinator' },
+    { id: 1, name: 'Ramesh Gupta', email: 'ramesh.gupta@army.gov.in', status: 'Active', role: 'Admin' },
+    { id: 2, name: 'Sanjay Mehta', email: 'sanjay.mehta@army.gov.in', status: 'Active', role: 'Manager' },
+    { id: 3, name: 'Kavita Desai', email: 'kavita.desai@army.gov.in', status: 'Active', role: 'Coordinator' },
   ];
 
   const teachers = [
-    { id: 1, name: 'Dr. Emily Brown', email: 'emily@klp.com', status: 'Active', subject: 'Mathematics' },
-    { id: 2, name: 'Prof. David Wilson', email: 'david@klp.com', status: 'Active', subject: 'Physics' },
-    { id: 3, name: 'Ms. Sarah Lee', email: 'sarah@klp.com', status: 'Active', subject: 'Chemistry' },
-    { id: 4, name: 'Mr. John Taylor', email: 'john@klp.com', status: 'Inactive', subject: 'Biology' },
+    { id: 1, name: 'Dr. Rajesh Kumar', email: 'rajesh.kumar@army.gov.in', status: 'Active', subject: 'Military Strategy' },
+    { id: 2, name: 'Prof. Amit Singh', email: 'amit.singh@army.gov.in', status: 'Active', subject: 'Physical Training' },
+    { id: 3, name: 'Ms. Priya Verma', email: 'priya.verma@army.gov.in', status: 'Active', subject: 'Weapons Training' },
+    { id: 4, name: 'Mr. Vikram Patel', email: 'vikram.patel@army.gov.in', status: 'Active', subject: 'Leadership' },
   ];
 
   const students = [
-    { id: 1, name: 'Alex Kumar', email: 'alex@student.klp.com', status: 'Active', batch: 'Batch A' },
-    { id: 2, name: 'Priya Sharma', email: 'priya@student.klp.com', status: 'Active', batch: 'Batch B' },
-    { id: 3, name: 'Raj Patel', email: 'raj@student.klp.com', status: 'Active', batch: 'Batch A' },
-    { id: 4, name: 'Maya Singh', email: 'maya@student.klp.com', status: 'Inactive', batch: 'Batch C' },
+    { id: 1, name: 'Rahul Sharma', email: 'rahul.sharma@student.army.gov.in', status: 'Active', batch: 'Commando' },
+    { id: 2, name: 'Priya Singh', email: 'priya.singh@student.army.gov.in', status: 'Active', batch: 'Platoon Commander' },
+    { id: 3, name: 'Raj Patel', email: 'raj.patel@student.army.gov.in', status: 'Active', batch: 'Commando' },
+    { id: 4, name: 'Anjali Reddy', email: 'anjali.reddy@student.army.gov.in', status: 'Active', batch: 'Platoon Commander' },
   ];
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" sx={{ color: '#ffffff', fontWeight: 'bold' }}>
-          Team Management
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
+        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
+          Team Management (टीम प्रबंधन)
         </Typography>
         <Button
           variant="contained"
           startIcon={<AddIcon />}
           sx={{
-            backgroundColor: '#e14eca',
-            '&:hover': { backgroundColor: '#c73aa8' },
+            backgroundColor: '#c62020ff',
+            '&:hover': { backgroundColor: '#a01818' },
           }}
         >
           Add Member
@@ -135,9 +139,9 @@ function Team() {
             value={tabValue}
             onChange={handleTabChange}
             sx={{
-              '& .MuiTab-root': { color: '#9a9a9a' },
-              '& .Mui-selected': { color: '#e14eca' },
-              '& .MuiTabs-indicator': { backgroundColor: '#e14eca' },
+              '& .MuiTab-root': { color: '#6b7280' },
+              '& .Mui-selected': { color: '#c62020ff' },
+              '& .MuiTabs-indicator': { backgroundColor: '#c62020ff' },
             }}
           >
             <Tab label="Office Staff" />
@@ -156,23 +160,23 @@ function Team() {
           </TabPanel>
 
           <TabPanel value={tabValue} index={1}>
-            <TableContainer component={Paper} sx={{ backgroundColor: '#27293d' }}>
+            <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Name</TableCell>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Email</TableCell>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Subject</TableCell>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Status</TableCell>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Actions</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Name</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Email</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Subject</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Status</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {teachers.map((teacher) => (
                     <TableRow key={teacher.id}>
-                      <TableCell sx={{ color: '#ffffff' }}>{teacher.name}</TableCell>
-                      <TableCell sx={{ color: '#9a9a9a' }}>{teacher.email}</TableCell>
-                      <TableCell sx={{ color: '#9a9a9a' }}>{teacher.subject}</TableCell>
+                      <TableCell sx={{ color: '#1f2937' }}>{teacher.name}</TableCell>
+                      <TableCell sx={{ color: '#6b7280' }}>{teacher.email}</TableCell>
+                      <TableCell sx={{ color: '#6b7280' }}>{teacher.subject}</TableCell>
                       <TableCell>
                         <Chip
                           label={teacher.status}
@@ -182,12 +186,12 @@ function Team() {
                       </TableCell>
                       <TableCell>
                         <Box sx={{ display: 'flex', gap: 1 }}>
-                          <IconButton size="small" sx={{ color: '#1d8cf8' }}>
+                          <IconButton size="small" sx={{ color: '#FF6B00' }}>
                             <EditIcon />
                           </IconButton>
                           <IconButton
                             size="small"
-                            sx={{ color: '#e14eca' }}
+                            sx={{ color: '#c62020ff' }}
                             onClick={() => handleSendMessage(teacher)}
                           >
                             <EmailIcon />
@@ -205,23 +209,23 @@ function Team() {
           </TabPanel>
 
           <TabPanel value={tabValue} index={2}>
-            <TableContainer component={Paper} sx={{ backgroundColor: '#27293d' }}>
+            <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Name</TableCell>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Email</TableCell>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Batch</TableCell>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Status</TableCell>
-                    <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Actions</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Name</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Email</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Batch</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Status</TableCell>
+                    <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {students.map((student) => (
                     <TableRow key={student.id}>
-                      <TableCell sx={{ color: '#ffffff' }}>{student.name}</TableCell>
-                      <TableCell sx={{ color: '#9a9a9a' }}>{student.email}</TableCell>
-                      <TableCell sx={{ color: '#9a9a9a' }}>{student.batch}</TableCell>
+                      <TableCell sx={{ color: '#1f2937' }}>{student.name}</TableCell>
+                      <TableCell sx={{ color: '#6b7280' }}>{student.email}</TableCell>
+                      <TableCell sx={{ color: '#6b7280' }}>{student.batch}</TableCell>
                       <TableCell>
                         <Chip
                           label={student.status}
@@ -231,12 +235,12 @@ function Team() {
                       </TableCell>
                       <TableCell>
                         <Box sx={{ display: 'flex', gap: 1 }}>
-                          <IconButton size="small" sx={{ color: '#1d8cf8' }}>
+                          <IconButton size="small" sx={{ color: '#FF6B00' }}>
                             <EditIcon />
                           </IconButton>
                           <IconButton
                             size="small"
-                            sx={{ color: '#e14eca' }}
+                            sx={{ color: '#c62020ff' }}
                             onClick={() => handleSendMessage(student)}
                           >
                             <EmailIcon />
@@ -259,3 +263,5 @@ function Team() {
 }
 
 export default Team;
+
+

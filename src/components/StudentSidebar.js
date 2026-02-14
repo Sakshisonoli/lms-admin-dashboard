@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Drawer,
@@ -12,27 +12,39 @@ import {
   Divider,
   useMediaQuery,
   useTheme,
+  TextField,
+  InputAdornment,
+  IconButton,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
-  Article as ArticleIcon,
   Message as MessageIcon,
   Notifications as NotificationsIcon,
   ExitToApp as LogoutIcon,
+  Description as DocumentIcon,
+  QuestionAnswer as QueryIcon,
+  School as TrainerIcon,
+  Person as PersonIcon,
+  Search as SearchIcon,
+  Close as CloseIcon,
 } from '@mui/icons-material';
 
 const menuItems = [
-  { text: 'My Dashboard', icon: <DashboardIcon />, path: '/student/dashboard' },
-  { text: 'Content', icon: <ArticleIcon />, path: '/student/content' },
-  { text: 'Messages', icon: <MessageIcon />, path: '/student/messages' },
-  { text: 'Notifications', icon: <NotificationsIcon />, path: '/student/notifications' },
+  { text: 'Dashboard (डैशबोर्ड)', icon: <DashboardIcon />, path: '/student/dashboard' },
+  { text: 'My Documents (मेरे दस्तावेज़)', icon: <DocumentIcon />, path: '/student/my-documents' },
+  { text: 'My Queries (मेरे प्रश्न)', icon: <QueryIcon />, path: '/student/my-queries' },
+  { text: 'My Trainers (मेरे प्रशिक्षक)', icon: <TrainerIcon />, path: '/student/my-trainers' },
+  { text: 'Messages (संदेश)', icon: <MessageIcon />, path: '/student/messages' },
+  { text: 'Notifications (सूचनाएं)', icon: <NotificationsIcon />, path: '/student/notifications' },
+  { text: 'My Profile (मेरी प्रोफ़ाइल)', icon: <PersonIcon />, path: '/student/profile' },
 ];
 
-function StudentSidebar({ drawerWidth, mobileOpen, onDrawerToggle }) {
+function StudentSidebar({ drawerWidth, mobileOpen, onDrawerToggle, searchOpen, onSearchClose }) {
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -47,50 +59,121 @@ function StudentSidebar({ drawerWidth, mobileOpen, onDrawerToggle }) {
     navigate('/');
   };
 
+  // Filter menu items based on search term
+  const filteredMenuItems = searchTerm
+    ? menuItems.filter(item => item.text.toLowerCase().includes(searchTerm.toLowerCase()))
+    : menuItems;
+
   const drawerContent = (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <Box sx={{ p: 3, textAlign: 'center' }}>
-        <Typography
-          variant="h4"
+      <Box 
+        sx={{ 
+          p: 3, 
+          textAlign: 'center', 
+          borderBottom: '2px solid #FF8C00',
+          background: 'linear-gradient(180deg, #2d5f3f 0%, #3d7f5f 100%)',
+        }}
+      >
+        <Box
+          component="img"
+          src="/images/IndianArmyLogo.png"
+          alt="Indian Army Logo"
           sx={{
-            color: '#00d4aa',
-            fontWeight: 'bold',
-            mb: 1,
+            width: '120px',
+            height: '120px',
+            margin: '0 auto 16px',
+            display: 'block',
+          }}
+        />
+        <Typography
+          variant="h5"
+          sx={{
+            color: '#FF8C00',
+            fontWeight: 900,
+            mb: 0.5,
+            letterSpacing: '1.5px',
+            fontSize: '1.25rem',
           }}
         >
-          Indian Army
+          INDIAN ARMY (भारतीय सेना)
         </Typography>
         <Typography
-          variant="subtitle1"
+          variant="body2"
           sx={{
-            color: '#9a9a9a',
-            fontSize: '0.875rem',
+            color: '#ffffff',
+            fontSize: '0.75rem',
+            fontWeight: 600,
+            letterSpacing: '0.5px',
           }}
         >
-          Student Dashboard
+          STUDENT DASHBOARD (छात्र डैशबोर्ड)
         </Typography>
       </Box>
       
-      <Divider sx={{ borderColor: '#344675', mx: 2 }} />
+      {/* Search Box */}
+      {searchOpen && (
+        <Box sx={{ px: 2, pt: 2 }}>
+          <TextField
+            fullWidth
+            placeholder="Search pages..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            autoFocus
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ color: '#9ca3af' }} />
+                </InputAdornment>
+              ),
+              endAdornment: searchTerm && (
+                <InputAdornment position="end">
+                  <IconButton 
+                    size="small" 
+                    onClick={() => setSearchTerm('')}
+                    sx={{ color: '#9ca3af' }}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                color: '#ffffff',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
+                '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
+                '&.Mui-focused fieldset': { borderColor: '#FF8C00' },
+              },
+              '& .MuiInputBase-input::placeholder': {
+                color: '#9ca3af',
+                opacity: 1,
+              },
+            }}
+          />
+        </Box>
+      )}
       
-      <List sx={{ px: 2, pt: 2 }}>
-        {menuItems.map((item) => (
-          <ListItem key={item.text} disablePadding sx={{ mb: 1 }}>
+      <List sx={{ px: 2, pt: 2, flex: 1 }}>
+        {filteredMenuItems.map((item) => (
+          <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
             <ListItemButton
               onClick={() => handleNavigation(item.path)}
               sx={{
-                borderRadius: '12px',
-                backgroundColor: location.pathname === item.path ? 'rgba(0, 212, 170, 0.1)' : 'transparent',
-                border: location.pathname === item.path ? '1px solid #00d4aa' : '1px solid transparent',
+                borderRadius: '6px',
+                borderLeft: location.pathname === item.path ? '4px solid #FF8C00' : '4px solid transparent',
+                backgroundColor: 'transparent',
                 '&:hover': {
-                  backgroundColor: 'rgba(0, 212, 170, 0.05)',
+                  backgroundColor: 'rgba(33, 150, 243, 0.15)',
                 },
                 py: 1.5,
+                pl: location.pathname === item.path ? 1.5 : 2,
+                transition: 'all 0.2s ease',
               }}
             >
               <ListItemIcon
                 sx={{
-                  color: location.pathname === item.path ? '#00d4aa' : '#9a9a9a',
+                  color: location.pathname === item.path ? '#FFB84D' : 'rgba(255, 255, 255, 0.8)',
                   minWidth: 40,
                 }}
               >
@@ -100,9 +183,10 @@ function StudentSidebar({ drawerWidth, mobileOpen, onDrawerToggle }) {
                 primary={item.text}
                 sx={{
                   '& .MuiListItemText-primary': {
-                    color: location.pathname === item.path ? '#ffffff' : '#9a9a9a',
-                    fontWeight: location.pathname === item.path ? 600 : 400,
+                    color: location.pathname === item.path ? '#ffffff' : 'rgba(255, 255, 255, 0.9)',
+                    fontWeight: location.pathname === item.path ? 700 : 500,
                     fontSize: '0.875rem',
+                    letterSpacing: '0.3px',
                   },
                 }}
               />
@@ -111,27 +195,28 @@ function StudentSidebar({ drawerWidth, mobileOpen, onDrawerToggle }) {
         ))}
       </List>
 
-      <Box sx={{ mt: 'auto', p: 2 }}>
-        <Divider sx={{ borderColor: '#344675', mb: 2 }} />
+      <Box sx={{ p: 2, borderTop: '2px solid #2d5f3f', backgroundColor: '#c62020ff' }}>
         <ListItemButton
           onClick={handleLogout}
           sx={{
-            borderRadius: '12px',
+            borderRadius: '6px',
             '&:hover': {
-              backgroundColor: 'rgba(253, 93, 147, 0.05)',
+              backgroundColor: 'rgba(0, 0, 0, 0.2)',
             },
             py: 1.5,
           }}
         >
-          <ListItemIcon sx={{ color: '#fd5d93', minWidth: 40 }}>
+          <ListItemIcon sx={{ color: '#ffffff', minWidth: 40 }}>
             <LogoutIcon />
           </ListItemIcon>
           <ListItemText
-            primary="Logout"
+            primary="Logout (लॉगआउट)"
             sx={{
               '& .MuiListItemText-primary': {
-                color: '#9a9a9a',
+                color: 'rgba(255, 255, 255, 0.9)',
                 fontSize: '0.875rem',
+                fontWeight: 600,
+                letterSpacing: '0.3px',
               },
             }}
           />
@@ -155,7 +240,7 @@ function StudentSidebar({ drawerWidth, mobileOpen, onDrawerToggle }) {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            background: 'linear-gradient(180deg, #1e1e2f 0%, #232741 100%)',
+            backgroundColor: '#2d5f3f',
           },
         }}
       >
@@ -172,7 +257,7 @@ function StudentSidebar({ drawerWidth, mobileOpen, onDrawerToggle }) {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            background: 'linear-gradient(180deg, #1e1e2f 0%, #232741 100%)',
+            backgroundColor: '#2d5f3f',
           },
         }}
       >

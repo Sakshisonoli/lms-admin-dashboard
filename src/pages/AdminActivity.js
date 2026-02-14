@@ -44,9 +44,9 @@ function AdminActivity() {
   const activities = [
     {
       id: 1,
-      user: 'John Admin',
+      user: 'Admin User',
       action: 'Created',
-      target: 'New Batch: Mathematics Foundation',
+      target: 'New Batch: Commando Training Program',
       category: 'Batch Management',
       timestamp: '2024-01-28 10:30 AM',
       status: 'Success',
@@ -54,9 +54,9 @@ function AdminActivity() {
     },
     {
       id: 2,
-      user: 'Sarah Manager',
+      user: 'Admin User',
       action: 'Updated',
-      target: 'User Profile: Dr. Emily Brown',
+      target: 'User Profile: Col. Rajesh Kumar',
       category: 'User Management',
       timestamp: '2024-01-28 09:15 AM',
       status: 'Success',
@@ -64,9 +64,9 @@ function AdminActivity() {
     },
     {
       id: 3,
-      user: 'Mike Admin',
+      user: 'Admin User',
       action: 'Deleted',
-      target: 'Content: Old Physics Notes',
+      target: 'Content: Old Training Manual',
       category: 'Content Management',
       timestamp: '2024-01-28 08:45 AM',
       status: 'Success',
@@ -127,18 +127,18 @@ function AdminActivity() {
   const getActionIcon = (action) => {
     switch (action.toLowerCase()) {
       case 'created':
-        return <AddIcon sx={{ fontSize: 16, color: '#00d4aa' }} />;
+        return <AddIcon sx={{ fontSize: 16, color: '#3B5323' }} />;
       case 'updated':
       case 'modified':
-        return <EditIcon sx={{ fontSize: 16, color: '#1d8cf8' }} />;
+        return <EditIcon sx={{ fontSize: 16, color: '#FF6B00' }} />;
       case 'deleted':
         return <DeleteIcon sx={{ fontSize: 16, color: '#fd5d93' }} />;
       case 'sent':
-        return <MessageIcon sx={{ fontSize: 16, color: '#e14eca' }} />;
+        return <MessageIcon sx={{ fontSize: 16, color: '#c62020ff' }} />;
       case 'exported':
-        return <DownloadIcon sx={{ fontSize: 16, color: '#ff8a00' }} />;
+        return <DownloadIcon sx={{ fontSize: 16, color: '#FF8C00' }} />;
       default:
-        return <ViewIcon sx={{ fontSize: 16, color: '#9a9a9a' }} />;
+        return <ViewIcon sx={{ fontSize: 16, color: '#6b7280' }} />;
     }
   };
 
@@ -180,19 +180,21 @@ function AdminActivity() {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ color: '#ffffff', mb: 3, fontWeight: 'bold' }}>
-        Admin Activity Log
-      </Typography>
+      <Box sx={{ mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
+        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
+          Admin Activity Log (व्यवस्थापक गतिविधि लॉग)
+        </Typography>
+      </Box>
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#1d8cf8', fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ color: '#FF6B00', fontWeight: 'bold' }}>
                 {stats.totalActivities}
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
+              <Typography variant="body2" sx={{ color: '#6b7280' }}>
                 Total Activities
               </Typography>
             </CardContent>
@@ -201,10 +203,10 @@ function AdminActivity() {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#00d4aa', fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ color: '#3B5323', fontWeight: 'bold' }}>
                 {stats.successfulActions}
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
+              <Typography variant="body2" sx={{ color: '#6b7280' }}>
                 Successful Actions
               </Typography>
             </CardContent>
@@ -216,7 +218,7 @@ function AdminActivity() {
               <Typography variant="h4" sx={{ color: '#fd5d93', fontWeight: 'bold' }}>
                 {stats.failedActions}
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
+              <Typography variant="body2" sx={{ color: '#6b7280' }}>
                 Failed Actions
               </Typography>
             </CardContent>
@@ -225,10 +227,10 @@ function AdminActivity() {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#e14eca', fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ color: '#c62020ff', fontWeight: 'bold' }}>
                 {stats.uniqueUsers}
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
+              <Typography variant="body2" sx={{ color: '#6b7280' }}>
                 Active Admins
               </Typography>
             </CardContent>
@@ -247,7 +249,7 @@ function AdminActivity() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{ color: '#9a9a9a' }} />
+                    <SearchIcon sx={{ color: '#6b7280' }} />
                   </InputAdornment>
                 ),
               }}
@@ -255,7 +257,7 @@ function AdminActivity() {
             />
             
             <FormControl sx={{ minWidth: 150 }}>
-              <InputLabel sx={{ color: '#9a9a9a' }}>Action</InputLabel>
+              <InputLabel sx={{ color: '#6b7280' }}>Action</InputLabel>
               <Select
                 value={filterAction}
                 onChange={(e) => setFilterAction(e.target.value)}
@@ -270,7 +272,7 @@ function AdminActivity() {
             </FormControl>
 
             <FormControl sx={{ minWidth: 150 }}>
-              <InputLabel sx={{ color: '#9a9a9a' }}>User</InputLabel>
+              <InputLabel sx={{ color: '#6b7280' }}>User</InputLabel>
               <Select
                 value={filterUser}
                 onChange={(e) => setFilterUser(e.target.value)}
@@ -284,24 +286,24 @@ function AdminActivity() {
             </FormControl>
 
             <Tooltip title="Export Activity Log">
-              <IconButton sx={{ color: '#e14eca' }}>
+              <IconButton sx={{ color: '#c62020ff' }}>
                 <DownloadIcon />
               </IconButton>
             </Tooltip>
           </Box>
 
           {/* Activity Table */}
-          <TableContainer component={Paper} sx={{ backgroundColor: '#27293d' }}>
+          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>User</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Action</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Target</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Category</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Timestamp</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Status</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Actions</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>User</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Action</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Target</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Category</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Timestamp</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Status</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -309,19 +311,19 @@ function AdminActivity() {
                   <TableRow key={activity.id}>
                     <TableCell>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Avatar sx={{ width: 32, height: 32, backgroundColor: '#e14eca' }}>
+                        <Avatar sx={{ width: 32, height: 32, backgroundColor: '#c62020ff' }}>
                           {activity.user.charAt(0)}
                         </Avatar>
-                        <Typography sx={{ color: '#ffffff' }}>{activity.user}</Typography>
+                        <Typography sx={{ color: '#1f2937' }}>{activity.user}</Typography>
                       </Box>
                     </TableCell>
                     <TableCell>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         {getActionIcon(activity.action)}
-                        <Typography sx={{ color: '#9a9a9a' }}>{activity.action}</Typography>
+                        <Typography sx={{ color: '#6b7280' }}>{activity.action}</Typography>
                       </Box>
                     </TableCell>
-                    <TableCell sx={{ color: '#9a9a9a', maxWidth: 200 }}>
+                    <TableCell sx={{ color: '#6b7280', maxWidth: 200 }}>
                       <Typography
                         sx={{
                           overflow: 'hidden',
@@ -335,12 +337,12 @@ function AdminActivity() {
                     <TableCell>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         {getCategoryIcon(activity.category)}
-                        <Typography sx={{ color: '#9a9a9a', fontSize: '0.875rem' }}>
+                        <Typography sx={{ color: '#6b7280', fontSize: '0.875rem' }}>
                           {activity.category}
                         </Typography>
                       </Box>
                     </TableCell>
-                    <TableCell sx={{ color: '#9a9a9a' }}>{activity.timestamp}</TableCell>
+                    <TableCell sx={{ color: '#6b7280' }}>{activity.timestamp}</TableCell>
                     <TableCell>
                       <Chip
                         label={activity.status}
@@ -350,7 +352,7 @@ function AdminActivity() {
                     </TableCell>
                     <TableCell>
                       <Tooltip title="View Details">
-                        <IconButton size="small" sx={{ color: '#1d8cf8' }}>
+                        <IconButton size="small" sx={{ color: '#FF6B00' }}>
                           <ViewIcon />
                         </IconButton>
                       </Tooltip>
@@ -367,3 +369,4 @@ function AdminActivity() {
 }
 
 export default AdminActivity;
+

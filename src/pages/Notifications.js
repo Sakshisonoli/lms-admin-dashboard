@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useUser } from '../context/UserContext';
 import {
   Box,
   Typography,
@@ -12,22 +13,36 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  InputAdornment,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Switch,
   FormControlLabel,
+  Avatar,
+  Alert,
 } from '@mui/material';
 import {
   Add as AddIcon,
+  Search as SearchIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   Send as SendIcon,
+  Notifications as NotificationsIcon,
+  Schedule as ScheduleIcon,
+  People as PeopleIcon,
 } from '@mui/icons-material';
 
 function Notifications() {
+  const { userContext } = useUser();
   const [openDialog, setOpenDialog] = useState(false);
+  const [dialogMode, setDialogMode] = useState('create');
+  const [selectedNotification, setSelectedNotification] = useState(null);
+  const [deleteDialog, setDeleteDialog] = useState(false);
+  const [notificationToDelete, setNotificationToDelete] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterType, setFilterType] = useState('all');
   const [newNotification, setNewNotification] = useState({
     title: '',
     message: '',
@@ -50,7 +65,7 @@ function Notifications() {
     {
       id: 2,
       title: 'New Course Available',
-      message: 'Advanced Mathematics course is now available for enrollment.',
+      message: 'Advanced Tactical Operations course is now available for enrollment.',
       type: 'info',
       audience: 'Students',
       time: '5 hours ago',
@@ -59,10 +74,10 @@ function Notifications() {
     },
     {
       id: 3,
-      title: 'Assignment Deadline Reminder',
-      message: 'Physics assignment deadline is approaching. Submit by Friday.',
+      title: 'Training Deadline Reminder',
+      message: 'Combat training assessment deadline is approaching. Submit by Friday.',
       type: 'warning',
-      audience: 'Batch A',
+      audience: 'Commando',
       time: '1 day ago',
       status: 'sent',
       recipients: 45,
@@ -89,24 +104,57 @@ function Notifications() {
     },
   ];
 
-  
-  const getNotificationColor = (type) => {
-    switch (type) {
-      case 'warning':
-        return '#ff8a00';
-      case 'error':
-        return '#fd5d93';
-      case 'success':
-        return '#00d4aa';
-      case 'info':
-      default:
-        return '#1d8cf8';
-    }
+  const filteredNotifications = notifications.filter((notification) => {
+    const matchesSearch = notification.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         notification.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         notification.audience.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesType = filterType === 'all' || notification.type === filterType;
+    return matchesSearch && matchesType;
+  });
+
+  const handleOpenCreate = () => {
+    setDialogMode('create');
+    setSelectedNotification(null);
+    setNewNotification({
+      title: '',
+      message: '',
+      type: 'info',
+      audience: 'all',
+      scheduled: false,
+    });
+    setOpenDialog(true);
+  };
+
+  const handleOpenEdit = (notification) => {
+    setDialogMode('edit');
+    setSelectedNotification(notification);
+    setNewNotification({
+      title: notification.title,
+      message: notification.message,
+      type: notification.type,
+      audience: notification.audience,
+      scheduled: false,
+    });
+    setOpenDialog(true);
+  };
+
+  const handleDeleteClick = (notification) => {
+    setNotificationToDelete(notification);
+    setDeleteDialog(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    console.log('Deleting notification:', notificationToDelete);
+    alert(`Notification "${notificationToDelete.title}" deleted successfully!`);
+    setDeleteDialog(false);
+    setNotificationToDelete(null);
   };
 
   const handleCreateNotification = () => {
-    console.log('Creating notification:', newNotification);
+    console.log(dialogMode === 'create' ? 'Creating notification:' : 'Updating notification:', newNotification);
+    alert(`Notification ${dialogMode === 'create' ? 'created' : 'updated'} successfully!`);
     setOpenDialog(false);
+    setSelectedNotification(null);
     setNewNotification({
       title: '',
       message: '',
@@ -117,78 +165,119 @@ function Notifications() {
   };
 
   const stats = {
-    total: notifications.length,
-    sent: notifications.filter(n => n.status === 'sent').length,
-    pending: notifications.filter(n => n.status === 'pending').length,
-    totalRecipients: notifications.reduce((sum, n) => sum + n.recipients, 0),
+    total: filteredNotifications.length,
+    sent: filteredNotifications.filter(n => n.status === 'sent').length,
+    pending: filteredNotifications.filter(n => n.status === 'pending').length,
+    totalRecipients: filteredNotifications.reduce((sum, n) => sum + n.recipients, 0),
   };
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" sx={{ color: '#ffffff', fontWeight: 'bold' }}>
-          Notifications & Alerts
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
+        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
+          Notifications & Alerts (सूचनाएं और अलर्ट)
         </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => setOpenDialog(true)}
-          sx={{
-            backgroundColor: '#e14eca',
-            '&:hover': { backgroundColor: '#c73aa8' },
-          }}
-        >
-          Create Notification
-        </Button>
+        {userContext.userType !== 'student' && (
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={handleOpenCreate}
+            sx={{
+              backgroundColor: '#c62020ff',
+              color: '#ffffff',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+              py: 1,
+              '&:hover': { 
+                backgroundColor: '#a01818',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+              },
+            }}
+          >
+            Create Notification (सूचना बनाएं)
+          </Button>
+        )}
       </Box>
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={userContext.userType === 'student' ? 4 : 3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#1d8cf8', fontWeight: 'bold' }}>
-                {stats.total}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
-                Total Notifications
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#0b1f3a', mr: 2 }}>
+                  <NotificationsIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#0b1f3a', fontWeight: 'bold' }}>
+                    {stats.total}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Total Notifications
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        {userContext.userType !== 'student' && (
+          <Grid item xs={12} sm={6} md={3}>
+            <Card>
+              <CardContent>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Avatar sx={{ backgroundColor: '#3B5323', mr: 2 }}>
+                    <SendIcon />
+                  </Avatar>
+                  <Box>
+                    <Typography variant="h4" sx={{ color: '#3B5323', fontWeight: 'bold' }}>
+                      {stats.sent}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                      Sent
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        )}
+        <Grid item xs={12} sm={6} md={userContext.userType === 'student' ? 4 : 3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#00d4aa', fontWeight: 'bold' }}>
-                {stats.sent}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
-                Sent
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#FF8C00', mr: 2 }}>
+                  <ScheduleIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#FF8C00', fontWeight: 'bold' }}>
+                    {stats.pending}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Pending
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={userContext.userType === 'student' ? 4 : 3}>
           <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#ff8a00', fontWeight: 'bold' }}>
-                {stats.pending}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
-                Pending
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Card>
-            <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#e14eca', fontWeight: 'bold' }}>
-                {stats.totalRecipients.toLocaleString()}
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
-                Total Recipients
-              </Typography>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar sx={{ backgroundColor: '#c62020ff', mr: 2 }}>
+                  <PeopleIcon />
+                </Avatar>
+                <Box>
+                  <Typography variant="h4" sx={{ color: '#c62020ff', fontWeight: 'bold' }}>
+                    {stats.totalRecipients.toLocaleString()}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#6b7280' }}>
+                    Total Recipients
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -197,35 +286,58 @@ function Notifications() {
       {/* Notifications List */}
       <Card>
         <CardContent>
-          <Typography variant="h6" sx={{ color: '#ffffff', mb: 3 }}>
-            Recent Notifications
+          {/* Search and Filters */}
+          <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
+            <TextField
+              placeholder="Search notifications..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: '#6b7280' }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ minWidth: 300, flexGrow: 1 }}
+            />
+            
+            <FormControl sx={{ minWidth: 150 }}>
+              <InputLabel>Type</InputLabel>
+              <Select
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+                label="Type"
+              >
+                <MenuItem value="all">All Types</MenuItem>
+                <MenuItem value="info">Info</MenuItem>
+                <MenuItem value="warning">Warning</MenuItem>
+                <MenuItem value="success">Success</MenuItem>
+                <MenuItem value="error">Error</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
+          <Typography variant="h6" sx={{ color: '#1f2937', mb: 3 }}>
+            Recent Notifications ({filteredNotifications.length})
           </Typography>
           <Box>
-            {notifications.map((notification) => (
+            {filteredNotifications.map((notification) => (
               <Card 
                 key={notification.id}
                 sx={{ 
                   mb: 2,
-                  backgroundColor: '#1e1e2f',
-                  border: '1px solid #344675',
+                  backgroundColor: '#1d1dabff',
+                  border: 'none',
+                  borderLeft: `4px solid #FF8C00`,
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
                   '&:hover': {
-                    borderColor: getNotificationColor(notification.type),
-                    backgroundColor: 'rgba(29, 140, 248, 0.02)',
+                    boxShadow: '0 6px 16px rgba(0,0,0,0.08)',
                   },
                 }}
               >
                 <CardContent sx={{ p: 2.5, '&:last-child': { pb: 2.5 } }}>
                   <Box sx={{ display: 'flex', gap: 2 }}>
-                    {/* Type Indicator */}
-                    <Box
-                      sx={{
-                        width: 4,
-                        backgroundColor: getNotificationColor(notification.type),
-                        borderRadius: 2,
-                        flexShrink: 0,
-                      }}
-                    />
-                    
                     {/* Content */}
                     <Box sx={{ flexGrow: 1 }}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
@@ -233,22 +345,26 @@ function Notifications() {
                           {notification.title}
                         </Typography>
                         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', flexShrink: 0 }}>
+                          {userContext.userType !== 'student' && (
+                            <IconButton 
+                              size="small" 
+                              onClick={() => handleOpenEdit(notification)}
+                              sx={{ 
+                                color: '#9ca3af',
+                                '&:hover': { color: '#ffffff', backgroundColor: 'rgba(255,255,255,0.1)' },
+                                width: 28,
+                                height: 28,
+                              }}
+                            >
+                              <EditIcon sx={{ fontSize: 14 }} />
+                            </IconButton>
+                          )}
                           <IconButton 
                             size="small" 
+                            onClick={() => handleDeleteClick(notification)}
                             sx={{ 
-                              color: '#9a9a9a',
-                              '&:hover': { color: '#1d8cf8', backgroundColor: 'rgba(29, 140, 248, 0.1)' },
-                              width: 28,
-                              height: 28,
-                            }}
-                          >
-                            <EditIcon sx={{ fontSize: 14 }} />
-                          </IconButton>
-                          <IconButton 
-                            size="small" 
-                            sx={{ 
-                              color: '#9a9a9a',
-                              '&:hover': { color: '#fd5d93', backgroundColor: 'rgba(253, 93, 147, 0.1)' },
+                              color: '#9ca3af',
+                              '&:hover': { color: '#c62020ff', backgroundColor: 'rgba(255,255,255,0.1)' },
                               width: 28,
                               height: 28,
                             }}
@@ -258,11 +374,11 @@ function Notifications() {
                         </Box>
                       </Box>
                       
-                      <Typography variant="body2" sx={{ color: '#9a9a9a', mb: 1.5, lineHeight: 1.6 }}>
+                      <Typography variant="body2" sx={{ color: '#e5e7eb', mb: 1.5, lineHeight: 1.6 }}>
                         {notification.message}
                       </Typography>
                       
-                      <Typography variant="caption" sx={{ color: '#6c757d', fontSize: '0.75rem' }}>
+                      <Typography variant="caption" sx={{ color: '#9ca3af', fontSize: '0.75rem' }}>
                         {notification.audience} • {notification.recipients} recipients • {notification.time}
                       </Typography>
                     </Box>
@@ -274,17 +390,19 @@ function Notifications() {
         </CardContent>
       </Card>
 
-      {/* Create Notification Dialog */}
+      {/* Create/Edit Notification Dialog */}
       <Dialog
         open={openDialog}
         onClose={() => setOpenDialog(false)}
         maxWidth="md"
         fullWidth
         PaperProps={{
-          sx: { backgroundColor: '#27293d', color: '#ffffff' },
+          sx: { backgroundColor: '#1d1dabff', color: '#ffffff' },
         }}
       >
-        <DialogTitle>Create New Notification</DialogTitle>
+        <DialogTitle sx={{ color: '#ffffff' }}>
+          {dialogMode === 'create' ? 'Create New Notification' : 'Edit Notification'}
+        </DialogTitle>
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12}>
@@ -293,6 +411,12 @@ function Notifications() {
                 label="Notification Title"
                 value={newNotification.title}
                 onChange={(e) => setNewNotification({ ...newNotification, title: e.target.value })}
+                sx={{
+                  '& .MuiOutlinedInput-root': { color: '#ffffff' },
+                  '& .MuiInputLabel-root': { color: '#9ca3af' },
+                  '& .MuiOutlinedInput-notchedOutline': { borderColor: '#6b7280' },
+                  '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#9ca3af' }
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -303,10 +427,22 @@ function Notifications() {
                 label="Message"
                 value={newNotification.message}
                 onChange={(e) => setNewNotification({ ...newNotification, message: e.target.value })}
+                sx={{
+                  '& .MuiOutlinedInput-root': { color: '#ffffff' },
+                  '& .MuiInputLabel-root': { color: '#9ca3af' },
+                  '& .MuiOutlinedInput-notchedOutline': { borderColor: '#6b7280' },
+                  '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#9ca3af' }
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
+              <FormControl fullWidth sx={{
+                '& .MuiOutlinedInput-root': { color: '#ffffff' },
+                '& .MuiInputLabel-root': { color: '#9ca3af' },
+                '& .MuiOutlinedInput-notchedOutline': { borderColor: '#6b7280' },
+                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#9ca3af' },
+                '& .MuiSvgIcon-root': { color: '#9ca3af' }
+              }}>
                 <InputLabel>Type</InputLabel>
                 <Select
                   value={newNotification.type}
@@ -321,7 +457,13 @@ function Notifications() {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
+              <FormControl fullWidth sx={{
+                '& .MuiOutlinedInput-root': { color: '#ffffff' },
+                '& .MuiInputLabel-root': { color: '#9ca3af' },
+                '& .MuiOutlinedInput-notchedOutline': { borderColor: '#6b7280' },
+                '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#9ca3af' },
+                '& .MuiSvgIcon-root': { color: '#9ca3af' }
+              }}>
                 <InputLabel>Audience</InputLabel>
                 <Select
                   value={newNotification.audience}
@@ -342,27 +484,97 @@ function Notifications() {
                   <Switch
                     checked={newNotification.scheduled}
                     onChange={(e) => setNewNotification({ ...newNotification, scheduled: e.target.checked })}
+                    sx={{
+                      '& .MuiSwitch-switchBase.Mui-checked': {
+                        color: '#c62020ff',
+                      },
+                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                        backgroundColor: '#c62020ff',
+                      },
+                    }}
                   />
                 }
                 label="Schedule for later"
+                sx={{ 
+                  color: '#ffffff',
+                  '& .MuiFormControlLabel-label': { color: '#ffffff' }
+                }}
               />
             </Grid>
           </Grid>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} sx={{ color: '#9a9a9a' }}>
-            Cancel
+        <DialogActions sx={{ p: 2, backgroundColor: '#1d1dabff', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <Button 
+            onClick={() => setOpenDialog(false)} 
+            sx={{ 
+              color: '#e5e7eb',
+              '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' }
+            }}
+          >
+            Cancel (रद्द करें)
           </Button>
           <Button
             onClick={handleCreateNotification}
             variant="contained"
             startIcon={<SendIcon />}
+            disabled={!newNotification.title || !newNotification.message || !newNotification.type || !newNotification.audience}
             sx={{
-              backgroundColor: '#e14eca',
-              '&:hover': { backgroundColor: '#c73aa8' },
+              backgroundColor: '#c62020ff',
+              color: '#ffffff',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+              py: 1,
+              '&:hover': { 
+                backgroundColor: '#a01818',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+              },
+              '&:disabled': { backgroundColor: '#6b7280', color: '#9ca3af' },
             }}
           >
-            Send Notification
+            {dialogMode === 'create' ? 'Send Notification (सूचना भेजें)' : 'Update Notification (सूचना अपडेट करें)'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={deleteDialog}
+        onClose={() => setDeleteDialog(false)}
+        PaperProps={{
+          sx: { backgroundColor: '#1d1dabff', color: '#ffffff' },
+        }}
+      >
+        <DialogTitle sx={{ color: '#ffffff', mb: 2 }}>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <Typography sx={{ color: '#e5e7eb' }}>
+            Are you sure you want to delete notification <strong>"{notificationToDelete?.title}"</strong>?
+          </Typography>
+          <Alert severity="warning" sx={{ mt: 2 }}>
+            This action cannot be undone. All recipients will no longer see this notification.
+          </Alert>
+        </DialogContent>
+        <DialogActions sx={{ p: 2, backgroundColor: '#1d1dabff', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <Button 
+            onClick={() => setDeleteDialog(false)} 
+            sx={{ 
+              color: '#e5e7eb',
+              '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' }
+            }}
+          >
+            Cancel (रद्द करें)
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleDeleteConfirm}
+            sx={{
+              backgroundColor: '#c62020ff',
+              color: '#ffffff',
+              '&:hover': { backgroundColor: '#a01818' },
+            }}
+          >
+            Delete Notification (सूचना हटाएं)
           </Button>
         </DialogActions>
       </Dialog>
@@ -371,3 +583,4 @@ function Notifications() {
 }
 
 export default Notifications;
+

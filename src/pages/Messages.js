@@ -28,72 +28,78 @@ import {
 function Messages() {
   const [selectedConversation, setSelectedConversation] = useState(0);
   const [newMessage, setNewMessage] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const conversations = [
     {
       id: 1,
-      name: 'Dr. Emily Brown',
-      role: 'Teacher',
-      lastMessage: 'The new mathematics curriculum is ready for review.',
+      name: 'Col. Rajesh Kumar',
+      role: 'Trainer',
+      lastMessage: 'The new military strategy curriculum is ready for review.',
       time: '2 hours ago',
       unread: 2,
-      avatar: 'E',
+      avatar: 'R',
     },
     {
       id: 2,
-      name: 'Student Support Team',
+      name: 'Training Support Team',
       role: 'Group',
       lastMessage: 'We need to discuss the upcoming batch enrollment.',
       time: '4 hours ago',
       unread: 0,
-      avatar: 'S',
+      avatar: 'T',
     },
     {
       id: 3,
-      name: 'Prof. David Wilson',
-      role: 'Teacher',
-      lastMessage: 'Physics lab equipment request submitted.',
+      name: 'Maj. Priya Sharma',
+      role: 'Trainer',
+      lastMessage: 'Combat training equipment request submitted.',
       time: '1 day ago',
       unread: 1,
-      avatar: 'D',
+      avatar: 'P',
     },
     {
       id: 4,
-      name: 'Alice Johnson',
-      role: 'Office Staff',
-      lastMessage: 'Monthly report is ready for your review.',
+      name: 'Lt. Col. Amit Singh',
+      role: 'Trainer',
+      lastMessage: 'Weapons training report is ready for your review.',
       time: '2 days ago',
       unread: 0,
       avatar: 'A',
     },
   ];
 
+  const filteredConversations = conversations.filter((conversation) =>
+    conversation.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    conversation.lastMessage.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const messages = [
     {
       id: 1,
-      sender: 'Dr. Emily Brown',
-      content: 'Hello! I wanted to update you on the mathematics curriculum progress.',
+      sender: 'Col. Rajesh Kumar',
+      content: 'Hello! I wanted to update you on the military strategy curriculum progress.',
       time: '10:30 AM',
       isOwn: false,
     },
     {
       id: 2,
       sender: 'You',
-      content: 'Great! How is the student response so far?',
+      content: 'Great! How is the trainee response so far?',
       time: '10:35 AM',
       isOwn: true,
     },
     {
       id: 3,
-      sender: 'Dr. Emily Brown',
-      content: 'The feedback has been very positive. Students are engaging well with the new interactive modules.',
+      sender: 'Col. Rajesh Kumar',
+      content: 'The feedback has been very positive. Trainees are engaging well with the new tactical modules.',
       time: '10:40 AM',
       isOwn: false,
     },
     {
       id: 4,
-      sender: 'Dr. Emily Brown',
-      content: 'The new mathematics curriculum is ready for review. I\'ve attached the complete syllabus.',
+      sender: 'Col. Rajesh Kumar',
+      content: 'The new military strategy curriculum is ready for review. I\'ve attached the complete syllabus.',
       time: '11:15 AM',
       isOwn: false,
     },
@@ -109,9 +115,11 @@ function Messages() {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ color: '#ffffff', mb: 3, fontWeight: 'bold' }}>
-        Messages & Communication
-      </Typography>
+      <Box sx={{ mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
+        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
+          Messages & Communication (संदेश और संचार)
+        </Typography>
+      </Box>
 
       <Grid container spacing={3} sx={{ height: 'calc(100vh - 200px)' }}>
         {/* Conversations List */}
@@ -122,10 +130,12 @@ function Messages() {
                 <TextField
                   fullWidth
                   placeholder="Search conversations..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <SearchIcon sx={{ color: '#9a9a9a' }} />
+                        <SearchIcon sx={{ color: '#6b7280' }} />
                       </InputAdornment>
                     ),
                   }}
@@ -137,39 +147,49 @@ function Messages() {
                 fullWidth
                 variant="contained"
                 sx={{
-                  backgroundColor: '#e14eca',
-                  '&:hover': { backgroundColor: '#c73aa8' },
+                  backgroundColor: '#c62020ff',
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                  py: 1,
+                  '&:hover': { 
+                    backgroundColor: '#a01818',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+                  },
                   mb: 2,
                 }}
               >
-                New Message
+                New Message (नया संदेश)
               </Button>
 
               <List sx={{ p: 0 }}>
-                {conversations.map((conversation, index) => (
+                {filteredConversations.map((conversation, index) => (
                   <React.Fragment key={conversation.id}>
                     <ListItem
                       button
                       selected={selectedConversation === index}
                       onClick={() => setSelectedConversation(index)}
                       sx={{
-                        borderRadius: '8px',
-                        mb: 1,
-                        backgroundColor: selectedConversation === index ? 'rgba(225, 78, 202, 0.1)' : 'transparent',
+                        borderRadius: 0,
+                        mb: 0,
+                        backgroundColor: selectedConversation === index ? '#f3f4f6' : 'transparent',
+                        borderLeft: selectedConversation === index ? '4px solid #FF8C00' : '4px solid transparent',
                         '&:hover': {
-                          backgroundColor: 'rgba(225, 78, 202, 0.05)',
+                          backgroundColor: '#f3f4f6',
                         },
                       }}
                     >
                       <ListItemAvatar>
-                        <Avatar sx={{ backgroundColor: '#e14eca' }}>
+                        <Avatar sx={{ backgroundColor: '#1d1dabff' }}>
                           {conversation.avatar}
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary={
                           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>
+                            <Typography variant="subtitle2" sx={{ color: '#1f2937' }}>
                               {conversation.name}
                             </Typography>
                             {conversation.unread > 0 && (
@@ -177,10 +197,11 @@ function Messages() {
                                 label={conversation.unread}
                                 size="small"
                                 sx={{
-                                  backgroundColor: '#e14eca',
+                                  backgroundColor: '#c62020ff',
                                   color: '#ffffff',
                                   height: 20,
                                   fontSize: '0.75rem',
+                                  fontWeight: 600,
                                 }}
                               />
                             )}
@@ -188,13 +209,13 @@ function Messages() {
                         }
                         secondary={
                           <Box>
-                            <Typography variant="caption" sx={{ color: '#1d8cf8' }}>
+                            <Typography variant="caption" sx={{ color: '#3B5323', fontWeight: 600 }}>
                               {conversation.role}
                             </Typography>
                             <Typography
                               variant="body2"
                               sx={{
-                                color: '#9a9a9a',
+                                color: '#6b7280',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
@@ -202,7 +223,7 @@ function Messages() {
                             >
                               {conversation.lastMessage}
                             </Typography>
-                            <Typography variant="caption" sx={{ color: '#9a9a9a' }}>
+                            <Typography variant="caption" sx={{ color: '#6b7280' }}>
                               {conversation.time}
                             </Typography>
                           </Box>
@@ -231,19 +252,19 @@ function Messages() {
               }}
             >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Avatar sx={{ backgroundColor: '#e14eca' }}>
+                <Avatar sx={{ backgroundColor: '#1d1dabff' }}>
                   {conversations[selectedConversation]?.avatar}
                 </Avatar>
                 <Box>
-                  <Typography variant="h6" sx={{ color: '#ffffff' }}>
+                  <Typography variant="h6" sx={{ color: '#1f2937' }}>
                     {conversations[selectedConversation]?.name}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: '#1d8cf8' }}>
+                  <Typography variant="caption" sx={{ color: '#3B5323', fontWeight: 600 }}>
                     {conversations[selectedConversation]?.role}
                   </Typography>
                 </Box>
               </Box>
-              <IconButton sx={{ color: '#9a9a9a' }}>
+              <IconButton sx={{ color: '#6b7280' }}>
                 <MoreVertIcon />
               </IconButton>
             </Box>
@@ -263,15 +284,18 @@ function Messages() {
                     sx={{
                       p: 2,
                       maxWidth: '70%',
-                      backgroundColor: message.isOwn ? '#e14eca' : '#344675',
-                      color: '#ffffff',
+                      backgroundColor: message.isOwn ? '#1d1dabff' : '#f4f6f9',
+                      boxShadow: 'none',
+                      border: message.isOwn ? 'none' : '1px solid #e5e7eb',
                     }}
                   >
-                    <Typography variant="body2">{message.content}</Typography>
+                    <Typography variant="body2" sx={{ color: message.isOwn ? '#ffffff' : '#1f2937' }}>
+                      {message.content}
+                    </Typography>
                     <Typography
                       variant="caption"
                       sx={{
-                        color: message.isOwn ? 'rgba(255,255,255,0.8)' : '#9a9a9a',
+                        color: message.isOwn ? 'rgba(255,255,255,0.8)' : '#4b5563',
                         display: 'block',
                         textAlign: 'right',
                         mt: 1,
@@ -301,15 +325,19 @@ function Messages() {
                     }
                   }}
                 />
-                <IconButton sx={{ color: '#9a9a9a' }}>
+                <IconButton sx={{ color: '#6b7280' }}>
                   <AttachFileIcon />
                 </IconButton>
                 <IconButton
                   onClick={handleSendMessage}
                   sx={{
-                    backgroundColor: '#e14eca',
+                    backgroundColor: '#c62020ff',
                     color: '#ffffff',
-                    '&:hover': { backgroundColor: '#c73aa8' },
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    '&:hover': { 
+                      backgroundColor: '#a01818',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+                    },
                   }}
                 >
                   <SendIcon />
@@ -324,3 +352,5 @@ function Messages() {
 }
 
 export default Messages;
+
+

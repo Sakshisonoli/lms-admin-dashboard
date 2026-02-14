@@ -58,10 +58,10 @@ function Lessons() {
   const lessons = [
     {
       id: 1,
-      title: 'Introduction to Military Strategy',
+      title: 'Military Strategy and Tactics',
       type: 'Video',
-      batch: 'Batch A',
-      uploadedBy: 'Col. Smith',
+      batch: 'Commando',
+      uploadedBy: 'Col. Rajesh Kumar',
       uploadDate: '2024-01-15',
       status: 'Published',
       duration: '45 min',
@@ -71,10 +71,10 @@ function Lessons() {
       id: 2,
       title: 'Combat Training Manual',
       type: 'PDF',
-      batch: 'Batch B',
-      uploadedBy: 'Maj. Johnson',
+      batch: 'Platoon Commander',
+      uploadedBy: 'Maj. Priya Sharma',
       uploadDate: '2024-01-14',
-      status: 'Draft',
+      status: 'Published',
       duration: 'N/A',
       size: '15 MB',
     },
@@ -82,8 +82,8 @@ function Lessons() {
       id: 3,
       title: 'Tactical Operations Guide',
       type: 'Interactive',
-      batch: 'Batch A',
-      uploadedBy: 'Lt. Col. Brown',
+      batch: 'Commando',
+      uploadedBy: 'Lt. Col. Amit Singh',
       uploadDate: '2024-01-13',
       status: 'Published',
       duration: '60 min',
@@ -91,10 +91,10 @@ function Lessons() {
     },
     {
       id: 4,
-      title: 'Leadership Assessment',
+      title: 'Leadership and Command',
       type: 'Assessment',
-      batch: 'Batch C',
-      uploadedBy: 'Capt. Wilson',
+      batch: 'Platoon Commander',
+      uploadedBy: 'Capt. Sneha Gupta',
       uploadDate: '2024-01-12',
       status: 'Published',
       duration: '30 min',
@@ -118,15 +118,15 @@ function Lessons() {
   const getTypeIcon = (type) => {
     switch (type) {
       case 'Video':
-        return <VideoIcon sx={{ fontSize: 16, color: '#e14eca' }} />;
+        return <VideoIcon sx={{ fontSize: 16, color: '#c62020ff' }} />;
       case 'PDF':
-        return <PdfIcon sx={{ fontSize: 16, color: '#1d8cf8' }} />;
+        return <PdfIcon sx={{ fontSize: 16, color: '#FF6B00' }} />;
       case 'Interactive':
-        return <ImageIcon sx={{ fontSize: 16, color: '#00d4aa' }} />;
+        return <ImageIcon sx={{ fontSize: 16, color: '#3B5323' }} />;
       case 'Assessment':
-        return <EditIcon sx={{ fontSize: 16, color: '#ff8a00' }} />;
+        return <EditIcon sx={{ fontSize: 16, color: '#FF8C00' }} />;
       default:
-        return <ViewIcon sx={{ fontSize: 16, color: '#9a9a9a' }} />;
+        return <ViewIcon sx={{ fontSize: 16, color: '#6b7280' }} />;
     }
   };
 
@@ -136,20 +136,20 @@ function Lessons() {
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" sx={{ color: '#ffffff', fontWeight: 'bold' }}>
-          Lesson Management
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, pb: 2, borderBottom: '2px solid #FF8C00' }}>
+        <Typography variant="h4" sx={{ color: '#1f2937', fontWeight: 'bold' }}>
+          Lesson Management (पाठ प्रबंधन)
         </Typography>
         <Button
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => setOpenDialog(true)}
           sx={{
-            backgroundColor: '#e14eca',
-            '&:hover': { backgroundColor: '#c73aa8' },
+            backgroundColor: '#c62020ff',
+            '&:hover': { backgroundColor: '#a01818' },
           }}
         >
-          Create Lesson
+          Create Lesson (पाठ बनाएं)
         </Button>
       </Box>
 
@@ -158,10 +158,10 @@ function Lessons() {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#e14eca', fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ color: '#c62020ff', fontWeight: 'bold' }}>
                 {lessons.length}
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
+              <Typography variant="body2" sx={{ color: '#6b7280' }}>
                 Total Lessons
               </Typography>
             </CardContent>
@@ -170,10 +170,10 @@ function Lessons() {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#1d8cf8', fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ color: '#FF6B00', fontWeight: 'bold' }}>
                 {lessons.filter(l => l.status === 'Published').length}
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
+              <Typography variant="body2" sx={{ color: '#6b7280' }}>
                 Published
               </Typography>
             </CardContent>
@@ -182,10 +182,10 @@ function Lessons() {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#ff8a00', fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ color: '#FF8C00', fontWeight: 'bold' }}>
                 {lessons.filter(l => l.status === 'Draft').length}
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
+              <Typography variant="body2" sx={{ color: '#6b7280' }}>
                 Draft
               </Typography>
             </CardContent>
@@ -194,10 +194,10 @@ function Lessons() {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardContent sx={{ textAlign: 'center' }}>
-              <Typography variant="h4" sx={{ color: '#00d4aa', fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ color: '#3B5323', fontWeight: 'bold' }}>
                 450
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a' }}>
+              <Typography variant="body2" sx={{ color: '#6b7280' }}>
                 Total MB
               </Typography>
             </CardContent>
@@ -216,7 +216,7 @@ function Lessons() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{ color: '#9a9a9a' }} />
+                    <SearchIcon sx={{ color: '#6b7280' }} />
                   </InputAdornment>
                 ),
               }}
@@ -224,7 +224,7 @@ function Lessons() {
             />
             
             <FormControl sx={{ minWidth: 150 }}>
-              <InputLabel sx={{ color: '#9a9a9a' }}>Type</InputLabel>
+              <InputLabel sx={{ color: '#6b7280' }}>Type</InputLabel>
               <Select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
@@ -239,49 +239,48 @@ function Lessons() {
             </FormControl>
 
             <FormControl sx={{ minWidth: 150 }}>
-              <InputLabel sx={{ color: '#9a9a9a' }}>Batch</InputLabel>
+              <InputLabel sx={{ color: '#6b7280' }}>Batch</InputLabel>
               <Select
                 value={filterBatch}
                 onChange={(e) => setFilterBatch(e.target.value)}
                 label="Batch"
               >
                 <MenuItem value="all">All Batches</MenuItem>
-                <MenuItem value="batch-a">Batch A</MenuItem>
-                <MenuItem value="batch-b">Batch B</MenuItem>
-                <MenuItem value="batch-c">Batch C</MenuItem>
+                <MenuItem value="commando">Commando</MenuItem>
+                <MenuItem value="platoon-commander">Platoon Commander</MenuItem>
               </Select>
             </FormControl>
           </Box>
 
           {/* Lessons Table */}
-          <TableContainer component={Paper} sx={{ backgroundColor: '#27293d' }}>
+          <TableContainer component={Paper} sx={{ backgroundColor: '#1d1dabff' }}>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Title</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Type</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Batch</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Uploaded By</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Duration</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Status</TableCell>
-                  <TableCell sx={{ color: '#ffffff', fontWeight: 'bold' }}>Actions</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Title</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Type</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Batch</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Uploaded By</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Duration</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Status</TableCell>
+                  <TableCell sx={{ color: '#1f2937', fontWeight: 'bold' }}>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {lessons.map((lesson) => (
                   <TableRow key={lesson.id}>
-                    <TableCell sx={{ color: '#ffffff' }}>{lesson.title}</TableCell>
+                    <TableCell sx={{ color: '#1f2937' }}>{lesson.title}</TableCell>
                     <TableCell>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         {getTypeIcon(lesson.type)}
-                        <Typography sx={{ color: '#9a9a9a', fontSize: '0.875rem' }}>
+                        <Typography sx={{ color: '#6b7280', fontSize: '0.875rem' }}>
                           {lesson.type}
                         </Typography>
                       </Box>
                     </TableCell>
-                    <TableCell sx={{ color: '#9a9a9a' }}>{lesson.batch}</TableCell>
-                    <TableCell sx={{ color: '#9a9a9a' }}>{lesson.uploadedBy}</TableCell>
-                    <TableCell sx={{ color: '#9a9a9a' }}>{lesson.duration}</TableCell>
+                    <TableCell sx={{ color: '#6b7280' }}>{lesson.batch}</TableCell>
+                    <TableCell sx={{ color: '#6b7280' }}>{lesson.uploadedBy}</TableCell>
+                    <TableCell sx={{ color: '#6b7280' }}>{lesson.duration}</TableCell>
                     <TableCell>
                       <Chip
                         label={lesson.status}
@@ -291,10 +290,10 @@ function Lessons() {
                     </TableCell>
                     <TableCell>
                       <Box sx={{ display: 'flex', gap: 1 }}>
-                        <IconButton size="small" sx={{ color: '#00d4aa' }}>
+                        <IconButton size="small" sx={{ color: '#3B5323' }}>
                           <ViewIcon />
                         </IconButton>
-                        <IconButton size="small" sx={{ color: '#1d8cf8' }}>
+                        <IconButton size="small" sx={{ color: '#FF6B00' }}>
                           <EditIcon />
                         </IconButton>
                         <IconButton size="small" sx={{ color: '#fd5d93' }}>
@@ -310,14 +309,14 @@ function Lessons() {
         </CardContent>
       </Card>
 
-      {/* Create Lesson Dialog */}
+      {/* Create Lesson (?? ???) Dialog */}
       <Dialog
         open={openDialog}
         onClose={() => setOpenDialog(false)}
         maxWidth="md"
         fullWidth
         PaperProps={{
-          sx: { backgroundColor: '#27293d', color: '#ffffff' },
+          sx: { backgroundColor: '#1d1dabff', color: '#ffffff' },
         }}
       >
         <DialogTitle>Create New Lesson</DialogTitle>
@@ -326,9 +325,9 @@ function Lessons() {
             value={tabValue}
             onChange={handleTabChange}
             sx={{
-              '& .MuiTab-root': { color: '#9a9a9a' },
-              '& .Mui-selected': { color: '#e14eca' },
-              '& .MuiTabs-indicator': { backgroundColor: '#e14eca' },
+              '& .MuiTab-root': { color: '#6b7280' },
+              '& .Mui-selected': { color: '#c62020ff' },
+              '& .MuiTabs-indicator': { backgroundColor: '#c62020ff' },
               mb: 3,
             }}
           >
@@ -339,19 +338,19 @@ function Lessons() {
 
           <TabPanel value={tabValue} index={0}>
             <Box sx={{ textAlign: 'center', py: 4 }}>
-              <UploadIcon sx={{ fontSize: 64, color: '#e14eca', mb: 2 }} />
-              <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
+              <UploadIcon sx={{ fontSize: 64, color: '#c62020ff', mb: 2 }} />
+              <Typography variant="h6" sx={{ color: '#1f2937', mb: 1 }}>
                 Upload Video Lesson
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a', mb: 3 }}>
+              <Typography variant="body2" sx={{ color: '#6b7280', mb: 3 }}>
                 Drag and drop your video file here or click to browse
               </Typography>
               <Button
                 variant="outlined"
                 sx={{
-                  borderColor: '#e14eca',
-                  color: '#e14eca',
-                  '&:hover': { borderColor: '#c73aa8', backgroundColor: 'rgba(225, 78, 202, 0.1)' },
+                  borderColor: '#c62020ff',
+                  color: '#c62020ff',
+                  '&:hover': { borderColor: '#a01818', backgroundColor: 'rgba(225, 78, 202, 0.1)' },
                 }}
               >
                 Choose Video File
@@ -361,18 +360,18 @@ function Lessons() {
 
           <TabPanel value={tabValue} index={1}>
             <Box sx={{ textAlign: 'center', py: 4 }}>
-              <PdfIcon sx={{ fontSize: 64, color: '#1d8cf8', mb: 2 }} />
-              <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
+              <PdfIcon sx={{ fontSize: 64, color: '#FF6B00', mb: 2 }} />
+              <Typography variant="h6" sx={{ color: '#1f2937', mb: 1 }}>
                 Upload PDF Document
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a', mb: 3 }}>
+              <Typography variant="body2" sx={{ color: '#6b7280', mb: 3 }}>
                 Upload training manuals, guides, and documents
               </Typography>
               <Button
                 variant="outlined"
                 sx={{
-                  borderColor: '#1d8cf8',
-                  color: '#1d8cf8',
+                  borderColor: '#FF6B00',
+                  color: '#FF6B00',
                   '&:hover': { borderColor: '#1565c0', backgroundColor: 'rgba(29, 140, 248, 0.1)' },
                 }}
               >
@@ -383,18 +382,18 @@ function Lessons() {
 
           <TabPanel value={tabValue} index={2}>
             <Box sx={{ textAlign: 'center', py: 4 }}>
-              <ImageIcon sx={{ fontSize: 64, color: '#00d4aa', mb: 2 }} />
-              <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
+              <ImageIcon sx={{ fontSize: 64, color: '#3B5323', mb: 2 }} />
+              <Typography variant="h6" sx={{ color: '#1f2937', mb: 1 }}>
                 Upload Images
               </Typography>
-              <Typography variant="body2" sx={{ color: '#9a9a9a', mb: 3 }}>
+              <Typography variant="body2" sx={{ color: '#6b7280', mb: 3 }}>
                 Upload diagrams, charts, and visual content
               </Typography>
               <Button
                 variant="outlined"
                 sx={{
-                  borderColor: '#00d4aa',
-                  color: '#00d4aa',
+                  borderColor: '#3B5323',
+                  color: '#3B5323',
                   '&:hover': { borderColor: '#00a085', backgroundColor: 'rgba(0, 212, 170, 0.1)' },
                 }}
               >
@@ -403,18 +402,25 @@ function Lessons() {
             </Box>
           </TabPanel>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} sx={{ color: '#9a9a9a' }}>
-            Cancel
+        <DialogActions sx={{ p: 2, backgroundColor: '#1d1dabff', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <Button 
+            onClick={() => setOpenDialog(false)} 
+            sx={{ 
+              color: '#e5e7eb',
+              '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' }
+            }}
+          >
+            Cancel (रद्द करें)
           </Button>
           <Button
             variant="contained"
             sx={{
-              backgroundColor: '#e14eca',
-              '&:hover': { backgroundColor: '#c73aa8' },
+              backgroundColor: '#c62020ff',
+              color: '#ffffff',
+              '&:hover': { backgroundColor: '#a01818' },
             }}
           >
-            Create Lesson
+            Create Lesson (पाठ बनाएं)
           </Button>
         </DialogActions>
       </Dialog>
@@ -423,3 +429,5 @@ function Lessons() {
 }
 
 export default Lessons;
+
+
