@@ -140,10 +140,10 @@ function Login() {
           <Box
             component="img"
             src="/images/IndianArmyLogo.png"
-            alt="Indian Army Logo"
+            alt="The Junior Leaders Wing (JLW) Logo"
             sx={{
-              width: '50px',
-              height: '50px',
+              width: '80px',
+              height: '80px',
               flexShrink: 0,
             }}
           />
@@ -158,7 +158,7 @@ function Login() {
                 fontFamily: '"Roboto", "Arial", sans-serif',
               }}
             >
-              INDIAN ARMY
+              THE JUNIOR LEADERS WING (JLW)
             </Typography>
             <Typography
               sx={{
@@ -186,7 +186,7 @@ function Login() {
               lineHeight: 1.5,
             }}
           >
-            Welcome to Indian Army Learning Management System. Please select your role and enter credentials to access the portal.
+            Welcome to The Junior Leaders Wing (JLW) Learning Management System. Please select your role and enter credentials to access the portal.
           </Typography>
 
           <Box sx={{ textAlign: 'center', mb: 2 }}>

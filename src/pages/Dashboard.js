@@ -152,7 +152,7 @@ function Dashboard() {
               mb: 1,
             }}
           >
-            INDIAN ARMY (भारतीय सेना)
+            THE JUNIOR LEADERS WING (JLW) (जूनियर लीडर्स विंग)
           </Typography>
           <Box
             sx={{

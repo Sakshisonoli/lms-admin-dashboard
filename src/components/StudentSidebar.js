@@ -76,7 +76,7 @@ function StudentSidebar({ drawerWidth, mobileOpen, onDrawerToggle, searchOpen, o
         <Box
           component="img"
           src="/images/IndianArmyLogo.png"
-          alt="Indian Army Logo"
+          alt="The Junior Leaders Wing (JLW) Logo"
           sx={{
             width: '120px',
             height: '120px',
@@ -94,7 +94,7 @@ function StudentSidebar({ drawerWidth, mobileOpen, onDrawerToggle, searchOpen, o
             fontSize: '1.25rem',
           }}
         >
-          INDIAN ARMY (भारतीय सेना)
+          THE JUNIOR LEADERS WING (JLW) (जूनियर लीडर्स विंग)
         </Typography>
         <Typography
           variant="body2"

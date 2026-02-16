@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PageHeader from '../components/PageHeader';
+import { useUser } from '../context/UserContext';
 import {
   Box,
   Typography,
@@ -21,17 +22,47 @@ import {
 } from '@mui/icons-material';
 
 function Profile() {
+  const { userContext } = useUser();
   const [editMode, setEditMode] = useState(false);
   const [passwordMode, setPasswordMode] = useState(false);
   
-  const [profileData, setProfileData] = useState({
-    name: 'Super Admin',
-    email: 'admin@army.gov.in',
-    role: 'Super Administrator',
-    department: 'Administration',
-    phone: '+91 98765 43210',
-    joinDate: 'January 15, 2024',
-  });
+  // Set initial profile data based on user type
+  const getInitialProfileData = () => {
+    if (userContext.userType === 'admin') {
+      return {
+        name: 'Super Admin',
+        email: 'admin@army.gov.in',
+        role: 'Super Administrator',
+        department: 'Administration',
+        phone: '+91 98765 43210',
+        joinDate: 'January 15, 2024',
+      };
+    } else if (userContext.userType === 'teacher') {
+      return {
+        name: 'Col. Rajesh Kumar',
+        email: 'rajesh.kumar@army.gov.in',
+        role: 'Senior Instructor',
+        department: 'Military Strategy',
+        phone: '+91 98765 12345',
+        joinDate: 'March 10, 2023',
+        assignedBatches: userContext.assignedBatches?.join(', ') || 'Commando, Platoon Commander',
+        specialization: 'Military Strategy & Tactics',
+      };
+    } else {
+      return {
+        name: 'Rahul Sharma',
+        email: 'rahul.sharma@student.army.gov.in',
+        role: 'Trainee',
+        department: userContext.assignedBatch || 'Commando',
+        phone: '+91 98765 67890',
+        joinDate: 'August 1, 2024',
+        batch: userContext.assignedBatch || 'Commando',
+        enrollmentId: 'STU2024001',
+      };
+    }
+  };
+
+  const [profileData, setProfileData] = useState(getInitialProfileData());
 
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
@@ -157,15 +188,45 @@ function Profile() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Department"
+                    label={userContext.userType === 'student' ? 'Batch' : 'Department'}
                     fullWidth
                     value={profileData.department}
                     disabled
                   />
                 </Grid>
+                {userContext.userType === 'teacher' && profileData.assignedBatches && (
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Assigned Batches"
+                      fullWidth
+                      value={profileData.assignedBatches}
+                      disabled
+                    />
+                  </Grid>
+                )}
+                {userContext.userType === 'teacher' && profileData.specialization && (
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Specialization"
+                      fullWidth
+                      value={profileData.specialization}
+                      disabled
+                    />
+                  </Grid>
+                )}
+                {userContext.userType === 'student' && profileData.enrollmentId && (
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Enrollment ID"
+                      fullWidth
+                      value={profileData.enrollmentId}
+                      disabled
+                    />
+                  </Grid>
+                )}
                 <Grid item xs={12}>
                   <TextField
-                    label="Join Date"
+                    label={userContext.userType === 'student' ? 'Enrollment Date' : 'Join Date'}
                     fullWidth
                     value={profileData.joinDate}
                     disabled
@@ -318,14 +379,36 @@ function Profile() {
                 </Typography>
                 
                 <Typography variant="body2" sx={{ color: '#6b7280', mb: 1 }}>
-                  Department
+                  {userContext.userType === 'student' ? 'Batch' : 'Department'}
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#1f2937', mb: 2 }}>
                   {profileData.department}
                 </Typography>
                 
+                {userContext.userType === 'teacher' && profileData.specialization && (
+                  <>
+                    <Typography variant="body2" sx={{ color: '#6b7280', mb: 1 }}>
+                      Specialization
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#1f2937', mb: 2 }}>
+                      {profileData.specialization}
+                    </Typography>
+                  </>
+                )}
+                
+                {userContext.userType === 'student' && profileData.enrollmentId && (
+                  <>
+                    <Typography variant="body2" sx={{ color: '#6b7280', mb: 1 }}>
+                      Enrollment ID
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#1f2937', mb: 2 }}>
+                      {profileData.enrollmentId}
+                    </Typography>
+                  </>
+                )}
+                
                 <Typography variant="body2" sx={{ color: '#6b7280', mb: 1 }}>
-                  Member Since
+                  {userContext.userType === 'student' ? 'Enrolled Since' : 'Member Since'}
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#1f2937' }}>
                   {profileData.joinDate}

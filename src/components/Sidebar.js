@@ -28,6 +28,7 @@ import {
   Group as GroupIcon,
   Search as SearchIcon,
   Close as CloseIcon,
+  Person as PersonIcon,
 } from '@mui/icons-material';
 
 const menuItems = [
@@ -48,6 +49,7 @@ const menuItems = [
   { text: 'Messages (संदेश)', icon: <MessageIcon />, path: '/admin/messages' },
   { text: 'Notifications (सूचनाएं)', icon: <NotificationsIcon />, path: '/admin/notifications' },
   { text: 'Admin Activity (व्यवस्थापक गतिविधि)', icon: <AdminIcon />, path: '/admin/admin-activity' },
+  { text: 'My Profile (मेरी प्रोफ़ाइल)', icon: <PersonIcon />, path: '/admin/profile' },
 ];
 
 function Sidebar({ drawerWidth, mobileOpen, onDrawerToggle, searchOpen, onSearchClose }) {
@@ -104,7 +106,7 @@ function Sidebar({ drawerWidth, mobileOpen, onDrawerToggle, searchOpen, onSearch
         <Box
           component="img"
           src="/images/IndianArmyLogo.png"
-          alt="Indian Army Logo"
+          alt="The Junior Leaders Wing (JLW) Logo"
           sx={{
             width: '120px',
             height: '110px',
@@ -122,7 +124,7 @@ function Sidebar({ drawerWidth, mobileOpen, onDrawerToggle, searchOpen, onSearch
             fontSize: '1.25rem',
           }}
         >
-          INDIAN ARMY (भारतीय सेना)
+          THE JUNIOR LEADERS WING (JLW) (जूनियर लीडर्स विंग)
         </Typography>
         <Typography
           variant="body2"
