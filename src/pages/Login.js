@@ -145,7 +145,7 @@ function Login() {
               width: '80px',
               height: '80px',
               flexShrink: 0,
-              filter: 'drop-shadow(0 0 1px #000000) drop-shadow(0 0 1px #000000) drop-shadow(0 0 2px #000000)',
+              filter: 'drop-shadow(0 0 2px #000000) drop-shadow(0 0 2px #000000) drop-shadow(0 0 3px #000000)',
             }}
           />
           <Box>
