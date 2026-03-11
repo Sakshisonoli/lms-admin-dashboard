@@ -112,6 +112,7 @@ function Sidebar({ drawerWidth, mobileOpen, onDrawerToggle, searchOpen, onSearch
             height: '110px',
             margin: '0 auto 16px',
             display: 'block',
+            filter: 'drop-shadow(0 0 1px #000000) drop-shadow(0 0 1px #000000) drop-shadow(0 0 2px #000000)',
           }}
         />
         <Typography

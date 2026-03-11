@@ -145,6 +145,7 @@ function Login() {
               width: '80px',
               height: '80px',
               flexShrink: 0,
+              filter: 'drop-shadow(0 0 1px #000000) drop-shadow(0 0 1px #000000) drop-shadow(0 0 2px #000000)',
             }}
           />
           <Box>
@@ -159,18 +160,6 @@ function Login() {
               }}
             >
               THE JUNIOR LEADERS WING (JLW)
-            </Typography>
-            <Typography
-              sx={{
-                color: '#ffffff',
-                fontSize: '0.7rem',
-                fontWeight: 600,
-                letterSpacing: '0.5px',
-                marginTop: '2px',
-                fontFamily: '"Roboto", "Arial", sans-serif',
-              }}
-            >
-              GOVERNMENT OF INDIA
             </Typography>
           </Box>
         </Box>
